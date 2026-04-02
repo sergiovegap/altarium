@@ -1,0 +1,10 @@
+{
+  "name": "@altarium/auth",
+  "version": "0.0.1",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "@altarium/packages": "*",
+    "@altarium/core": "*"
+  }
+}
