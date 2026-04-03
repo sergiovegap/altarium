@@ -1,12 +1,39 @@
+// {
+//   "compilerOptions": {
+//     "strict": true,
+//     "paths": {
+//       "@/*": ["./*"]
+//     }
+//   },
+//   "include": [
+//     "**/*.ts",
+//     "**/*.tsx",
+//   ]
+// }
+
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "paths": {
-      "@/*": ["./*"]
+      "@altarium/types":              ["./packages/core/types/index.ts"],
+      "@altarium/core/*":             ["./packages/core/*"],
+      "@altarium/auth":               ["./packages/features/auth/index.ts"],
+      "@altarium/misas":              ["./packages/features/misas/index.ts"],
+      "@altarium/servicios":          ["./packages/features/servicios/index.ts"],
+      "@altarium/parroquias":         ["./packages/features/parroquias/index.ts"],
+      "@altarium/notifications":      ["./packages/features/notifications/index.ts"],
+      "@altarium/ui/*":               ["./packages/ui/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-  ]
+  // "exclude": ["node_modules"]
 }

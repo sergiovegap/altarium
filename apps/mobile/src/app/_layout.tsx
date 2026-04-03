@@ -1,8 +1,9 @@
 import React from 'react';
 import { useColorScheme } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import AppTabs from '@/components/AppTabs';
 
-import AppTabs from '@/src/components/AppTabs';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

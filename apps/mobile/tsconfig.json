@@ -1,8 +1,31 @@
+// {
+//   "extends": "expo/tsconfig.base",
+//   "compilerOptions": {
+//     "strict": true,
+//     "paths": {
+//       "@/*": [
+//         "./src/*"
+//       ],
+//       "@/assets/*": [
+//         "./assets/*"
+//       ],
+//       "@altarium/packages": ["../../packages"]
+//     }
+//   },
+//   "include": [
+//     "**/*.ts",
+//     "**/*.tsx",
+//     ".expo/types/**/*.ts",
+//     "expo-env.d.ts"
+//   ]
+// }
+
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "lib": ["ES2017"],
+    "jsx": "react-native",
     "strict": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
@@ -10,13 +33,8 @@
       "@/assets/*": [
         "./assets/*"
       ],
-      "@altarium/packages": ["../../packages"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
