@@ -1,15 +1,15 @@
-import React from 'react';
-import { useColorScheme } from 'react-native';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import AppTabs from '@/components/AppTabs';
+// React
+import React, { useEffect } from "react";
+// Expo
+import { Slot, SplashScreen } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const RootLayout = () => {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AppTabs />
-    </ThemeProvider>
-  );
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Slot />
+   </GestureHandlerRootView>
+  )
 }
+
+export default RootLayout;
