@@ -1,5 +1,7 @@
 // React
 import React from "react";
+import { Pressable } from "react-native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 // Expo
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,21 +10,45 @@ import ThemedTabIcon from "@/components/common/ThemedTabIcon";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 const TabLayout = () => {
-    const { accentColor } = useThemeColor();
+    const { accentColor, gold } = useThemeColor();
+    const navigation = useNavigation();
+    const toggleDrawer = () => {
+        navigation.dispatch(DrawerActions.toggleDrawer);
+    };
 
     return (
         <Tabs
             screenOptions={{
                 headerTitle: "",
                 headerShadowVisible: false,
-                headerShown: false,
-                tabBarActiveTintColor: accentColor,
+                headerShown: true,
+                sceneStyle: {
+                    backgroundColor: "white",
+                },
+                headerStyle: {
+                    backgroundColor: "white",
+                    // backgroundColor: accentColor,
+                },
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                    color: accentColor,
+                    fontSize: 20,
+                    fontWeight: "bold",
+                },
+                tabBarActiveTintColor: gold,
+                tabBarInactiveTintColor: "white",
+                // tabBarInactiveTintColor: accentColor,
+                tabBarStyle: {
+                    // backgroundColor: "white",
+                    backgroundColor: accentColor,
+                },
             }}
         >
             <Tabs.Screen
                 name="masses/index"
                 options={{
                     title: "Misas",
+                    headerTitle: "Misas",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/eucharist-fill.png")}
@@ -35,6 +61,12 @@ const TabLayout = () => {
                 name="altarboys/index"
                 options={{
                     title: "Monaguillos",
+                    headerTitle: "Monaguillos",
+                    // headerTitleStyle: {
+                    //     color: "white",
+                    //     fontSize: 20,
+                    //     fontWeight: "bold",
+                    // },
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/altar-boy-thurible.png")}
@@ -47,6 +79,7 @@ const TabLayout = () => {
                 name="formation/index"
                 options={{
                     title: "Formación",
+                    headerTitle: "Formación",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/cathecism-fill.png")}
@@ -59,6 +92,7 @@ const TabLayout = () => {
                 name="ai/index"
                 options={{
                     title: "AI",
+                    headerTitle: "Magisterium",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/ai-christian-fill.png")}
@@ -71,6 +105,19 @@ const TabLayout = () => {
                 name="profile/index"
                 options={{
                     title: "Perfil",
+                    headerTitle: "Perfil",
+                    headerRightContainerStyle: {
+                        padding: 8,
+                    },
+                    headerRight: () => (
+                        <Pressable onPress={toggleDrawer}>
+                            <FontAwesome
+                                name="gear"
+                                size={24}
+                                color={accentColor}
+                            />
+                        </Pressable>
+                    ),
                     tabBarIcon: ({ color }) => (
                         <FontAwesome name="user" size={24} color={color} />
                     ),

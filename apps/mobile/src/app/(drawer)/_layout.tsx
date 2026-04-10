@@ -9,7 +9,7 @@ import CustomDrawer from "@/components/ui/CustomDrawer";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 const ProfileDrawerLayout = () => {
-    const { accentColor } = useThemeColor();
+    const { accentColor, gold } = useThemeColor();
 
     return (
         <Drawer
@@ -20,13 +20,19 @@ const ProfileDrawerLayout = () => {
                 headerShadowVisible: false,
                 swipeEnabled: false,
                 overlayColor: "rgba(0, 0, 0, 0.4)",
-                drawerActiveTintColor: accentColor,
                 sceneStyle: {
                     backgroundColor: "white",
                 },
+                drawerStyle: {
+                    backgroundColor: "white",
+                    padding: 10,
+                },
+                drawerItemStyle: {
+                    display: "none",
+                },
             }}
         >
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="(tabs)"
                 options={{
                     drawerItemStyle: { display: "none" },
@@ -72,8 +78,18 @@ const ProfileDrawerLayout = () => {
                     drawerLabel: "Privacidad",
                     title: "Privacidad",
                     headerShown: true,
-                    drawerLabelStyle: { color: "black" },
-                    drawerActiveTintColor: "white",
+                    drawerItemStyle: {
+                        backgroundColor: "#f8f9fa",
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        borderColor: "gray",
+                        margin: 0,
+                        padding: 0,
+                    },
+                    drawerLabelStyle: {
+                        color: "black",
+                    },
+                    drawerActiveTintColor: accentColor,
                     drawerActiveBackgroundColor: accentColor,
                     drawerInactiveTintColor: "white",
                     drawerIcon: ({ size }) => (
@@ -84,7 +100,7 @@ const ProfileDrawerLayout = () => {
                         />
                     ),
                 }}
-            />
+            /> */}
         </Drawer>
     );
 };

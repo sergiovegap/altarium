@@ -7,11 +7,7 @@ import { Text } from "react-native";
 import ThemedView from "@/components/common/ThemedView";
 
 const Formation = () => {
-    return (
-        <ThemedView>
-            <Text>Formación</Text>
-        </ThemedView>
-    );
+    return <></>;
 };
 
 export default Formation;

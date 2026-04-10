@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
+// React
 import React from "react";
+// Custom
+import ThemedView from "@/components/common/ThemedView";
+import HeaderBackButton from "@/components/common/HeaderBackButton";
 
 const Account = () => {
     return (
-        <View>
-            <Text>Account</Text>
-        </View>
+        <ThemedView>
+            <HeaderBackButton />
+        </ThemedView>
     );
 };
 

@@ -1,11 +1,17 @@
-import { FontAwesome } from "@expo/vector-icons";
+// React
+import { Image, Pressable } from "react-native";
+// Expo
 import { router } from "expo-router";
-import { Pressable, Text } from "react-native";
 
-const HeaderBackButton = () => (
-    <Pressable onPress={() => router.back()}>
-        <FontAwesome name="arrow-left" size={20} color="black" />
-    </Pressable>
-);
+const HeaderBackButton = () => {
+    return (
+        <Pressable onPress={() => router.dismissTo("/(drawer)/(tabs)/profile")}>
+            <Image
+                source={require("@/assets/icons/arrow-left.png")}
+                style={{ width: 20, height: 20 }}
+            />
+        </Pressable>
+    );
+};
 
 export default HeaderBackButton;

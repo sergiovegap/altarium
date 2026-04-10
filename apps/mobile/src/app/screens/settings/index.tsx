@@ -9,7 +9,6 @@ const Settings = () => {
     return (
         <ThemedView>
             <HeaderBackButton />
-            <Text>SettingsScreen</Text>
         </ThemedView>
     );
 };

@@ -7,11 +7,7 @@ import { Text } from "react-native";
 import ThemedView from "@/components/common/ThemedView";
 
 const Masses = () => {
-    return (
-        <ThemedView>
-            <Text>Misas</Text>
-        </ThemedView>
-    );
+    return <></>;
 };
 
 export default Masses;

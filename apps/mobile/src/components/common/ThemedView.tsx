@@ -9,7 +9,7 @@ interface Props {
 
 const ThemedView = ({ className, children }: Props) => {
     return (
-        <SafeAreaView style={{ padding: 5 }} className={className}>
+        <SafeAreaView style={{ flex: 1, padding: 5 }} className={className}>
             {children}
         </SafeAreaView>
     );

@@ -6,11 +6,7 @@ import { Text } from "react-native";
 import ThemedView from "@/components/common/ThemedView";
 
 const AltarBoys = () => {
-    return (
-        <ThemedView>
-            <Text>Monaguillos</Text>
-        </ThemedView>
-    );
+    return <></>;
 };
 
 export default AltarBoys;

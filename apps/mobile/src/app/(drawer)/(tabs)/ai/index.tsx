@@ -1,7 +1,7 @@
 // React
 import React from "react";
 // Custom
-import ArtificialIntelligenceScreen from "@/app/screens/ai/ai";
+import ArtificialIntelligenceScreen from "@/app/screens/ai";
 
 const ArtificialIntelligence = () => {
     return <ArtificialIntelligenceScreen />;

@@ -7,11 +7,7 @@ import { Text } from "react-native";
 import ThemedView from "@/components/common/ThemedView";
 
 const ArtificialIntelligence = () => {
-    return (
-        <ThemedView>
-            <Text>Magisterium</Text>
-        </ThemedView>
-    );
+    return <></>;
 };
 
 export default ArtificialIntelligence;

@@ -8,6 +8,8 @@ export const Colors = {
         backgroundSelected: "#E0E1E6",
         textSecondary: "#60646C",
         accentColor: "#D71F2B",
+        gold: "#e0c869",
+        gold_600: "#a47b23",
     },
     dark: {
         text: "#ffffff",
@@ -16,6 +18,8 @@ export const Colors = {
         backgroundSelected: "#2E3135",
         textSecondary: "#B0B4BA",
         accentColor: "#D71F2B",
+        gold: "#e0c869",
+        gold_600: "#a47b23",
     },
 };
 
