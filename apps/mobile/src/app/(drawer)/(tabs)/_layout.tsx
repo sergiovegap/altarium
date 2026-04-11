@@ -3,7 +3,7 @@ import React from "react";
 import { Pressable } from "react-native";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 // Expo
-import { Tabs } from "expo-router";
+import { Tabs, usePathname } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 //Curstom
 import ThemedTabIcon from "@/components/common/ThemedTabIcon";
@@ -15,19 +15,18 @@ const TabLayout = () => {
     const toggleDrawer = () => {
         navigation.dispatch(DrawerActions.toggleDrawer);
     };
+    const pathname = usePathname();
 
     return (
         <Tabs
             screenOptions={{
-                headerTitle: "",
-                headerShadowVisible: false,
+                // headerShadowVisible: false,
                 headerShown: true,
                 sceneStyle: {
                     backgroundColor: "white",
                 },
                 headerStyle: {
                     backgroundColor: "white",
-                    // backgroundColor: accentColor,
                 },
                 headerTitleAlign: "center",
                 headerTitleStyle: {
@@ -37,7 +36,6 @@ const TabLayout = () => {
                 },
                 tabBarActiveTintColor: gold,
                 tabBarInactiveTintColor: "white",
-                // tabBarInactiveTintColor: accentColor,
                 tabBarStyle: {
                     // backgroundColor: "white",
                     backgroundColor: accentColor,
@@ -62,11 +60,6 @@ const TabLayout = () => {
                 options={{
                     title: "Monaguillos",
                     headerTitle: "Monaguillos",
-                    // headerTitleStyle: {
-                    //     color: "white",
-                    //     fontSize: 20,
-                    //     fontWeight: "bold",
-                    // },
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/altar-boy-thurible.png")}
@@ -102,10 +95,11 @@ const TabLayout = () => {
                 }}
             />
             <Tabs.Screen
-                name="profile/index"
+                name="profile"
                 options={{
                     title: "Perfil",
                     headerTitle: "Perfil",
+                    headerShown: pathname === "/profile" ? true : false,
                     headerRightContainerStyle: {
                         padding: 8,
                     },

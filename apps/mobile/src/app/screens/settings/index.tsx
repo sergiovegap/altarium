@@ -1,14 +1,13 @@
 // React
 import React from "react";
-import { Text } from "react-native";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
-import HeaderBackButton from "@/components/common/HeaderBackButton";
+import ThemedHeader from "@/components/common/ThemedHeader";
 
 const Settings = () => {
     return (
         <ThemedView>
-            <HeaderBackButton />
+            <ThemedHeader title="Ajustes" />
         </ThemedView>
     );
 };

@@ -2,12 +2,12 @@
 import React from "react";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
-import HeaderBackButton from "@/components/common/HeaderBackButton";
+import ThemedHeader from "@/components/common/ThemedHeader";
 
 const Account = () => {
     return (
         <ThemedView>
-            <HeaderBackButton />
+            <ThemedHeader title="Cuenta" />
         </ThemedView>
     );
 };

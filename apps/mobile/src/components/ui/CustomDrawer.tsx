@@ -1,6 +1,6 @@
 // React
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { View } from "react-native";
 // Expo
 import {
     DrawerContentComponentProps,
@@ -9,56 +9,37 @@ import {
 } from "@react-navigation/drawer";
 import CustomDrawerItems from "./CustomDrawerItem";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import Avatar from "./Avatar";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-    const { accentColor, gold, gold_600 } = useThemeColor();
+    const { accentColor, accentColor_400, gold, gold_600 } = useThemeColor();
 
     return (
         <DrawerContentScrollView {...props}>
             <View className="flex items-center">
-                <View
-                    style={{
-                        borderColor: gold_600,
-                        borderWidth: 1,
-                        borderRadius: 10,
-                    }}
-                    className="flex justify-center items-center mx p-5 mb-5 rounded-xl w-full"
-                >
-                    <Image
-                        style={{
-                            width: 100,
-                            height: 100,
-                            borderRadius: 100,
-                        }}
-                        source={require("@/assets/images/development/profile.png")}
-                    />
-                    <Text
-                        style={{
-                            color: "black",
-                            fontSize: 20,
-                            fontWeight: "bold",
-                        }}
-                        className="mt-2"
-                    >
-                        Username
-                    </Text>
-                </View>
+                <Avatar
+                    userName="John Doe"
+                    imageSource={require("@/assets/images/development/profile.png")}
+                />
                 <CustomDrawerItems
                     label="Ajustes"
-                    color={gold_600}
-                    route="/screens/settings"
+                    baseColor={accentColor}
+                    accentColor={accentColor_400}
+                    route="/profile/settings"
                     iconSource={require("@/assets/icons/gear.png")}
                 />
                 <CustomDrawerItems
                     label="Privacidad"
-                    color={gold_600}
-                    route="/screens/privacy"
+                    baseColor={accentColor}
+                    accentColor={accentColor_400}
+                    route="/profile/privacy"
                     iconSource={require("@/assets/icons/user-secret.png")}
                 />
                 <CustomDrawerItems
                     label="Cuenta"
-                    color={gold_600}
-                    route="/screens/account"
+                    baseColor={accentColor}
+                    accentColor={accentColor_400}
+                    route="/profile/account"
                     iconSource={require("@/assets/icons/key.png")}
                 />
                 <DrawerItemList {...props} />

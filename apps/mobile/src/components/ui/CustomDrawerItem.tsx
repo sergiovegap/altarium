@@ -1,3 +1,5 @@
+// React
+import React from "react";
 import {
     View,
     Text,
@@ -5,19 +7,25 @@ import {
     Image,
     ImageSourcePropType,
 } from "react-native";
-import React from "react";
-import { useThemeColor } from "@/hooks/useThemeColor";
+// Expo
 import { Href, usePathname, Link } from "expo-router";
 
 interface Props {
     label: string;
-    color: string;
+    baseColor: string;
+    accentColor: string;
     route: Href;
     iconSource: ImageSourcePropType;
 }
 
-const CustomDrawerItems = ({ label, color, route, iconSource }: Props) => {
-    const { accentColor, gold, gold_600 } = useThemeColor();
+const CustomDrawerItems = ({
+    label,
+    baseColor,
+    accentColor,
+    route,
+    iconSource,
+}: Props) => {
+    // const { accentColor, accentColor_400, gold, gold_600 } = useThemeColor();
     const pathname = usePathname();
     const isFocused = pathname === route;
 
@@ -27,7 +35,8 @@ const CustomDrawerItems = ({ label, color, route, iconSource }: Props) => {
             asChild
             className="rounded-[10px] bg-white border-[1px] border-gray-400 p-2 m-2 w-full"
             style={{
-                borderColor: gold_600,
+                borderColor: baseColor,
+                backgroundColor: isFocused ? accentColor : "white",
             }}
         >
             <Pressable className="flex-row justify-between items-center">
@@ -40,7 +49,10 @@ const CustomDrawerItems = ({ label, color, route, iconSource }: Props) => {
                         <Image
                             source={iconSource}
                             style={{
-                                tintColor: isFocused ? accentColor : color,
+                                backgroundColor: isFocused
+                                    ? accentColor
+                                    : "white",
+                                tintColor: baseColor,
                                 width: 26,
                                 height: 26,
                             }}
@@ -48,7 +60,7 @@ const CustomDrawerItems = ({ label, color, route, iconSource }: Props) => {
                     </View>
                     <Text
                         style={{
-                            color: isFocused ? accentColor : color,
+                            color: baseColor,
                             fontWeight: isFocused ? "600" : "400",
                         }}
                     >
@@ -57,7 +69,11 @@ const CustomDrawerItems = ({ label, color, route, iconSource }: Props) => {
                 </View>
                 <Image
                     source={require("@/assets/icons/arrow-right.png")}
-                    style={{ tintColor: color, width: 24, height: 24 }}
+                    style={{
+                        tintColor: baseColor,
+                        width: 24,
+                        height: 24,
+                    }}
                 />
             </Pressable>
         </Link>

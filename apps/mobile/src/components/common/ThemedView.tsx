@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
     className?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const ThemedView = ({ className, children }: Props) => {
