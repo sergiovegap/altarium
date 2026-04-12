@@ -1,7 +1,7 @@
-import { DimensionValue, View } from "react-native";
+import { DimensionValue, FlexStyle, View } from "react-native";
 import React from "react";
 
-interface Props {
+interface Props extends FlexStyle {
     width: DimensionValue;
 }
 
@@ -11,7 +11,7 @@ const ShadowLine = ({ width }: Props) => {
             style={{
                 width: width,
             }}
-            className="h-[0.5px] w-full bg-gray-400"
+            className="h-[0.2px] bg-gray-400"
         />
     );
 };

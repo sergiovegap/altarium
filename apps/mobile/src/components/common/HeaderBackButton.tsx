@@ -1,5 +1,5 @@
 // React
-import { Image, Pressable } from "react-native";
+import { Image, Pressable, View } from "react-native";
 // Expo
 import { router } from "expo-router";
 

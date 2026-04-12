@@ -24,7 +24,7 @@ VALUES (
    ),
    (
       'Cáliz, Purificador y Palia',
-      'Sobre el Cáliz se pone el Purificador en forma cuadrada y la Palia para cubir'
+      'Sobre el Cáliz se pone el Purificador en forma cuadrada y la Palia para cubir el cáliz cuando no se esté usando'
    ),
    (
       'Campana de mano o Campanilla',

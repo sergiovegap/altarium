@@ -10,6 +10,8 @@ export const Colors = {
         accentColor: "#D71F2B",
         accentColor_400: "#fee2e4",
         gold: "#e0c869",
+        gold_50: "#fbf8eb",
+        gold_100: "#f5efcd",
         gold_600: "#a47b23",
     },
     dark: {
@@ -21,6 +23,8 @@ export const Colors = {
         accentColor: "#D71F2B",
         accentColor_400: "#fee2e4",
         gold: "#e0c869",
+        gold_50: "#fbf8eb",
+        gold_100: "#f5efcd",
         gold_600: "#a47b23",
     },
 };

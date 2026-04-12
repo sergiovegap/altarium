@@ -1,4 +1,5 @@
 // React
+import { useThemeColor } from "@/hooks/useThemeColor";
 import React from "react";
 import {
     View,
@@ -17,8 +18,8 @@ interface Props extends ViewProps {
 const Avatar = ({ userName, imageSource }: Props) => {
     return (
         <View
+            className="flex justify-center items-center shadow-md mb-1"
             style={{}}
-            className="flex justify-center items-center rounded-xl mb-1"
         >
             <Image
                 style={{
