@@ -15,19 +15,20 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import EditMassItemsList from "@/app/screens/liturgical-items";
 
 interface Props {
-    userRole: string;
-    parish: string;
+    userRole?: string;
+    parish?: string;
 }
 
 const Profile = ({
     userRole = "Monaguillo",
     parish = "parish Virgen de San Juan",
 }: Props) => {
-    const { accentColor, accentColor_400, gold, gold_600 } = useThemeColor();
+    const { accentColor, accentColor_400, gold, gold_600, gold_50 } =
+        useThemeColor();
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     return (
-        <ThemedView className="flex flex-col items-center bg-white">
+        <ThemedView className="flex flex-col items-center bg-white pt-6">
             <Avatar
                 className=""
                 userName="Sergio Vega Perera"
@@ -70,7 +71,7 @@ const Profile = ({
                 fontStyle={{ color: "black", fontWeight: "bold" }}
             />
             <View style={{ flex: 1 }}>
-                {selectedIndex === 0 && <EditMassItemsList></EditMassItemsList>}
+                {selectedIndex === 0 && <></>}
                 {selectedIndex === 1 && <MassItemsList item={MassItemCard} />}
             </View>
         </ThemedView>

@@ -1,13 +1,14 @@
 // React
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
+// Expo
+import { FontAwesome } from "@expo/vector-icons";
 // Custom
 import HeaderBackButton from "@/components/common/HeaderBackButton";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "expo-router";
-import { DrawerActions } from "@react-navigation/native";
 import ShadowLine from "./ShadowLine";
+import DrawerIconButton from "./DrawerIconButton";
 
 interface Props {
     title: string;
@@ -15,10 +16,6 @@ interface Props {
 
 const ThemedHeader = ({ title }: Props) => {
     const { accentColor } = useThemeColor();
-    const navigation = useNavigation();
-    const toggleDrawer = () => {
-        navigation.dispatch(DrawerActions.toggleDrawer);
-    };
 
     return (
         <View>
@@ -34,9 +31,7 @@ const ThemedHeader = ({ title }: Props) => {
                 >
                     {title}
                 </Text>
-                <Pressable onPress={toggleDrawer}>
-                    <FontAwesome name="gear" size={24} color={accentColor} />
-                </Pressable>
+                <DrawerIconButton accentColor={accentColor} />
             </View>
             <ShadowLine width={"100%"} />
         </View>

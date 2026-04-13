@@ -1,20 +1,15 @@
 // React
 import React from "react";
-import { Pressable } from "react-native";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
 // Expo
 import { Tabs, usePathname } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 //Curstom
 import ThemedTabIcon from "@/components/common/ThemedTabIcon";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import DrawerIconButton from "@/components/common/DrawerIconButton";
 
 const TabLayout = () => {
     const { accentColor, gold } = useThemeColor();
-    const navigation = useNavigation();
-    const toggleDrawer = () => {
-        navigation.dispatch(DrawerActions.toggleDrawer);
-    };
     const pathname = usePathname();
 
     return (
@@ -99,18 +94,13 @@ const TabLayout = () => {
                 options={{
                     title: "Perfil",
                     headerTitle: "Perfil",
-                    headerShown: pathname === "/profile" ? true : false,
+                    // headerShown: pathname === "/profile" ? true : false,
+                    // headerShown: true,
                     headerRightContainerStyle: {
                         padding: 8,
                     },
                     headerRight: () => (
-                        <Pressable onPress={toggleDrawer}>
-                            <FontAwesome
-                                name="gear"
-                                size={24}
-                                color={accentColor}
-                            />
-                        </Pressable>
+                        <DrawerIconButton accentColor={accentColor} />
                     ),
                     tabBarIcon: ({ color }) => (
                         <FontAwesome name="user" size={24} color={color} />

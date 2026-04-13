@@ -6,8 +6,8 @@
     "dev": "expo start",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint"
   },
@@ -21,6 +21,7 @@
     "@react-navigation/native": "^7.1.33",
     "expo": "~55.0.12",
     "expo-constants": "~55.0.12",
+    "expo-dev-client": "~55.0.27",
     "expo-device": "~55.0.13",
     "expo-font": "~55.0.4",
     "expo-glass-effect": "~55.0.8",

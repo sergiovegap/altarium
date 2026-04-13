@@ -2,21 +2,20 @@
 import React from "react";
 import { Text, View } from "react-native";
 // Custom
-import HeaderBackButton from "@/components/common/HeaderBackButton";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import ShadowLine from "./ShadowLine";
 
 interface Props {
     title: string;
+    className?: string;
 }
 
-const ThemedHeaderBack = ({ title }: Props) => {
+const ThemedHeaderTitle = ({ title, className }: Props) => {
     const { accentColor } = useThemeColor();
 
     return (
-        <View>
-            <View className="flex flex-row justify-between items-center mb-4">
-                <HeaderBackButton color={accentColor} />
+        <View className={className}>
+            <View className="flex flex-row justify-center items-center mb-4">
                 <Text
                     className="text-primary text-xl"
                     style={{
@@ -27,11 +26,10 @@ const ThemedHeaderBack = ({ title }: Props) => {
                 >
                     {title}
                 </Text>
-                <View></View>
             </View>
             <ShadowLine width={"100%"} />
         </View>
     );
 };
 
-export default ThemedHeaderBack;
+export default ThemedHeaderTitle;

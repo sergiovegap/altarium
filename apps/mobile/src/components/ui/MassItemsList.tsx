@@ -1,8 +1,7 @@
 // Ract
 import React, { useState } from "react";
-import { FlatList, Image, Modal, Pressable, Text, View } from "react-native";
+import { FlatList, Image, Modal, Pressable, View } from "react-native";
 // Expo
-import { Href, usePathname, Link } from "expo-router";
 import { router } from "expo-router";
 // Custom
 import { useThemeColor } from "@/hooks/useThemeColor";
@@ -48,15 +47,19 @@ const MassItemsList = ({ item: Item }: Props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Pressable onPress={() => router.push("/screens/liturgical-items")}>
+            <Pressable
+                onPress={() =>
+                    router.push("/(drawer)/(tabs)/profile/liturgical-items")
+                }
+            >
                 <Image
                     style={{
-                        width: 50,
+                        width: 25,
                         height: 25,
                         tintColor: gold_600,
                         alignSelf: "flex-end",
                     }}
-                    source={require("@/assets/icons/edit-attributes-fill.png")}
+                    source={require("@/assets/icons/add-fill.png")}
                 />
             </Pressable>
             <FlatList

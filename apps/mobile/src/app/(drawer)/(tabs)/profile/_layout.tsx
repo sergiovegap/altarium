@@ -1,19 +1,85 @@
+// React
 import React from "react";
-import { Stack } from "expo-router";
+import { Platform } from "react-native";
+// Expo
+import { Stack, usePathname } from "expo-router";
+// Custom
+import { useThemeColor } from "@/hooks/useThemeColor";
+import DrawerIconButton from "@/components/common/DrawerIconButton";
+import HeaderBackButton from "@/components/common/HeaderBackButton";
 
 const ProfileLayout = () => {
+    const { accentColor } = useThemeColor();
+    const pathname = usePathname();
+    const isAndroid = Platform.OS === "android";
+
     return (
         <Stack
             initialRouteName="index"
             screenOptions={{
-                headerShown: false,
-                animation: "slide_from_right",
+                headerShown: true,
                 animationDuration: 100,
                 presentation: "card",
+                animation: "fade",
+                headerTitleStyle: {
+                    color: accentColor,
+                    fontSize: 20,
+                    fontWeight: "bold",
+                },
+                headerTitleAlign: "center",
+                headerLeft: () =>
+                    pathname !== "/(drawer)/(tabs)/profile" && (
+                        <HeaderBackButton
+                            color={accentColor}
+                            href={"/(drawer)/(tabs)/profile"}
+                        />
+                    ),
+                headerRight: () => (
+                    <DrawerIconButton accentColor={accentColor} />
+                ),
+                contentStyle: {
+                    backgroundColor: "white",
+                },
             }}
         >
-            <Stack.Screen name="account/index" />
-            <Stack.Screen name="settings/index" />
+            <Stack.Screen
+                name="index"
+                options={{
+                    headerShown: false,
+                    headerTitle: "Perfil",
+                }}
+            />
+            <Stack.Screen
+                name="account/index"
+                options={{
+                    headerTitle: "Cuenta",
+                }}
+            />
+            <Stack.Screen
+                name="settings/index"
+                options={{
+                    headerTitle: "Ajustes",
+                }}
+            />
+            <Stack.Screen
+                name="privacy/index"
+                options={{
+                    headerTitle: "Privacidad",
+                }}
+            />
+            <Stack.Screen
+                name="liturgical-items/index"
+                options={{
+                    headerShown: true,
+                    title: "Mis Objetos Litúrgicos",
+                    presentation: isAndroid ? "card" : "modal",
+                    animation: "fade_from_bottom",
+                    headerLeft: () => null,
+                    headerRight: () => null,
+                    headerBackVisible: true,
+                    statusBarTranslucent: false,
+                }}
+            />
         </Stack>
     );
 };
