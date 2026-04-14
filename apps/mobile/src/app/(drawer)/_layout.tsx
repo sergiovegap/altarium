@@ -3,7 +3,7 @@ import React from "react";
 // Expo
 import { Drawer } from "expo-router/drawer";
 // Custom
-import CustomDrawer from "@/components/ui/CustomDrawer";
+import CustomDrawer from "@/components/ui/drawer/CustomDrawer";
 
 const ProfileDrawerLayout = () => {
     return (

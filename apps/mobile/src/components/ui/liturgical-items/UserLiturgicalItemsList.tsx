@@ -5,8 +5,9 @@ import { FlatList, Image, Modal, Pressable, View } from "react-native";
 import { router } from "expo-router";
 // Custom
 import { useThemeColor } from "@/hooks/useThemeColor";
-import MassItemCard from "@/components/ui/MassItemCard";
-import MassItemModal from "./MassItemModal";
+import MassItemCard from "@/components/ui/liturgical-items/LiturgicalItemCard";
+import MassItemModal from "./LiturgicalItemModal";
+import CustomButton from "@/components/common/CustomButton";
 
 interface Props {
     item: typeof MassItemCard;
@@ -39,7 +40,7 @@ const DATA = [
     },
 ];
 
-const MassItemsList = ({ item: Item }: Props) => {
+const UserLiturgicalItemsList = ({ item: Item }: Props) => {
     const { accentColor, gold, gold_600 } = useThemeColor();
     const [selectedItem, setSelectedItem] = useState<(typeof DATA)[0] | null>(
         null,
@@ -47,21 +48,14 @@ const MassItemsList = ({ item: Item }: Props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Pressable
+            <CustomButton
+                color={gold_600}
+                className="self-end"
+                iconSource={require("@/assets/icons/add-fill.png")}
                 onPress={() =>
                     router.push("/(drawer)/(tabs)/profile/liturgical-items")
                 }
-            >
-                <Image
-                    style={{
-                        width: 25,
-                        height: 25,
-                        tintColor: gold_600,
-                        alignSelf: "flex-end",
-                    }}
-                    source={require("@/assets/icons/add-fill.png")}
-                />
-            </Pressable>
+            />
             <FlatList
                 data={DATA}
                 keyExtractor={(item) => item.id}
@@ -117,4 +111,4 @@ const MassItemsList = ({ item: Item }: Props) => {
     );
 };
 
-export default MassItemsList;
+export default UserLiturgicalItemsList;

@@ -13,7 +13,7 @@ const HeaderBackButton = ({ color, href }: Props) => {
         <Pressable onPress={() => router.dismissTo(href)}>
             <Image
                 source={require("@/assets/icons/arrow-left.png")}
-                style={{ width: 24, height: 24, tintColor: color }}
+                style={{ width: 25, height: 25, tintColor: color }}
             />
         </Pressable>
     );

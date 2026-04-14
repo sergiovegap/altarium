@@ -7,9 +7,9 @@ import {
     DrawerContentScrollView,
     DrawerItemList,
 } from "@react-navigation/drawer";
-import CustomDrawerItems from "./CustomDrawerItem";
+import CustomDrawerItems from "@/components/ui/drawer/CustomDrawerItem";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import Avatar from "./Avatar";
+import Avatar from "../../common/Avatar";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
     const { accentColor, accentColor_400, gold, gold_600 } = useThemeColor();

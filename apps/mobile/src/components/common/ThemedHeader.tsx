@@ -20,7 +20,7 @@ const ThemedHeader = ({ title }: Props) => {
     return (
         <View>
             <View className="flex flex-row justify-between items-center mb-4">
-                <HeaderBackButton color={accentColor} />
+                <HeaderBackButton color={accentColor} href="/" />
                 <Text
                     className="text-primary text-xl"
                     style={{

@@ -7,6 +7,7 @@ import { Stack, usePathname } from "expo-router";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import DrawerIconButton from "@/components/common/DrawerIconButton";
 import HeaderBackButton from "@/components/common/HeaderBackButton";
+import HeaderDownButton from "@/components/common/HeaderDownButton";
 
 const ProfileLayout = () => {
     const { accentColor } = useThemeColor();
@@ -68,16 +69,21 @@ const ProfileLayout = () => {
                 }}
             />
             <Stack.Screen
+                name="user-masses-list/index"
+                options={{
+                    headerTitle: "Mis Misas",
+                }}
+            />
+            <Stack.Screen
                 name="liturgical-items/index"
                 options={{
                     headerShown: true,
                     title: "Mis Objetos Litúrgicos",
                     presentation: isAndroid ? "card" : "modal",
                     animation: "fade_from_bottom",
-                    headerLeft: () => null,
+                    headerLeft: () => (isAndroid ? <HeaderDownButton /> : null),
                     headerRight: () => null,
-                    headerBackVisible: true,
-                    statusBarTranslucent: false,
+                    headerBackVisible: false,
                 }}
             />
         </Stack>

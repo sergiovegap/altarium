@@ -8,7 +8,7 @@ interface Props {
     source: ImageSourcePropType;
 }
 
-const MassItemModal = ({ name, description, source }: Props) => {
+const LiturgicalItemModal = ({ name, description, source }: Props) => {
     return (
         <View className="flex-col items-center">
             <Image
@@ -26,4 +26,4 @@ const MassItemModal = ({ name, description, source }: Props) => {
     );
 };
 
-export default MassItemModal;
+export default LiturgicalItemModal;

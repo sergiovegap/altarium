@@ -5,14 +5,14 @@ import { Text } from "react-native-gesture-handler";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 // Expo
 // Custom
+import { useThemeColor } from "@/hooks/useThemeColor";
 import ThemedView from "@/components/common/ThemedView";
-import Avatar from "@/components/ui/Avatar";
+import Avatar from "@/components/common/Avatar";
 import UserRole from "@/components/common/UserRole";
 import ShadowLine from "@/components/common/ShadowLine";
-import MassItemsList from "@/components/ui/MassItemsList";
-import MassItemCard from "@/components/ui/MassItemCard";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import EditMassItemsList from "@/app/screens/liturgical-items";
+import UserMassesList from "@/components/ui/masses/UserMassesList";
+import UserLiturgicalItemsList from "@/components/ui/liturgical-items/UserLiturgicalItemsList";
+import LiturgicalItemCard from "@/components/ui/liturgical-items/LiturgicalItemCard";
 
 interface Props {
     userRole?: string;
@@ -21,7 +21,7 @@ interface Props {
 
 const Profile = ({
     userRole = "Monaguillo",
-    parish = "parish Virgen de San Juan",
+    parish = "Parroquia Virgen de San Juan",
 }: Props) => {
     const { accentColor, accentColor_400, gold, gold_600, gold_50 } =
         useThemeColor();
@@ -51,8 +51,8 @@ const Profile = ({
             <ShadowLine width={"100%"} />
             <SegmentedControl
                 values={["Misas", "Objetos Litúrgicos"]}
-                selectedIndex={selectedIndex}
-                // selectedIndex={1}
+                // selectedIndex={selectedIndex}
+                selectedIndex={0}
                 onChange={(event) => {
                     setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
                 }}
@@ -71,8 +71,10 @@ const Profile = ({
                 fontStyle={{ color: "black", fontWeight: "bold" }}
             />
             <View style={{ flex: 1 }}>
-                {selectedIndex === 0 && <></>}
-                {selectedIndex === 1 && <MassItemsList item={MassItemCard} />}
+                {selectedIndex === 0 && <UserMassesList></UserMassesList>}
+                {selectedIndex === 1 && (
+                    <UserLiturgicalItemsList item={LiturgicalItemCard} />
+                )}
             </View>
         </ThemedView>
     );

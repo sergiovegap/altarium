@@ -1,12 +1,6 @@
 // React
 import React from "react";
-import {
-    View,
-    Text,
-    Pressable,
-    Image,
-    ImageSourcePropType,
-} from "react-native";
+import { Text, Pressable, Image, ImageSourcePropType } from "react-native";
 // Expo
 // Custom
 import { useThemeColor } from "@/hooks/useThemeColor";
@@ -18,7 +12,7 @@ interface Props {
     onPress: () => void;
 }
 
-const MassItemCard = ({ name, description, source, onPress }: Props) => {
+const LiturgicalItemCard = ({ name, description, source, onPress }: Props) => {
     const { accentColor, gold, gold_50, gold_100, gold_600 } = useThemeColor();
 
     return (
@@ -45,4 +39,4 @@ const MassItemCard = ({ name, description, source, onPress }: Props) => {
     );
 };
 
-export default MassItemCard;
+export default LiturgicalItemCard;

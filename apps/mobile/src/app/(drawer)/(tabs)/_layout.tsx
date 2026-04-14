@@ -7,10 +7,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import ThemedTabIcon from "@/components/common/ThemedTabIcon";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import DrawerIconButton from "@/components/common/DrawerIconButton";
+import { Platform } from "react-native";
 
 const TabLayout = () => {
     const { accentColor, gold } = useThemeColor();
     const pathname = usePathname();
+    const isAndroid = Platform.OS === "android";
 
     return (
         <Tabs
@@ -44,7 +46,8 @@ const TabLayout = () => {
                     headerTitle: "Misas",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
-                            icon={require("@/assets/icons/eucharist-fill.png")}
+                            icon={require("@/assets/icons/cristian-calendar-fill.png")}
+                            // icon={require("@/assets/icons/eucharist-fill.png")}
                             color={color}
                         />
                     ),
@@ -94,7 +97,8 @@ const TabLayout = () => {
                 options={{
                     title: "Perfil",
                     headerTitle: "Perfil",
-                    // headerShown: pathname === "/profile" ? true : false,
+                    // headerShown: pathname === "/profile" ? true : false },
+                    // headerShown: isAndroid && pathname === "/profile" ? false : true,
                     // headerShown: true,
                     headerRightContainerStyle: {
                         padding: 8,

@@ -50,7 +50,7 @@ CREATE TABLE priests (
 CREATE TABLE masses (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    day DATE NOT NULL,
-   time TIME NOT NULL,
+   time TIMESTAMP NOT NULL,
    priest_id UUID REFERENCES priests(id),
    parish_id UUID NOT NULL REFERENCES parishes(id) ON DELETE CASCADE,
    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
