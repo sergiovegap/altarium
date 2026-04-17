@@ -10,7 +10,7 @@ import ThemedView from "@/components/common/ThemedView";
 import Avatar from "@/components/common/Avatar";
 import UserRole from "@/components/common/UserRole";
 import ShadowLine from "@/components/common/ShadowLine";
-import UserMassesList from "@/components/ui/masses/UserMassesList";
+import UserMassesList from "@/app/screens/masses/components/UserMassesList";
 import UserLiturgicalItemsList from "@/components/ui/liturgical-items/UserLiturgicalItemsList";
 import LiturgicalItemCard from "@/components/ui/liturgical-items/LiturgicalItemCard";
 

@@ -6,7 +6,7 @@ import { FlashList } from "@shopify/flash-list";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import ShadowLine from "@/components/common/ShadowLine";
-import AltarBoyCard from "@/components/ui/altarboys/AltarBoyCard";
+import AltarBoyCard from "@/app/screens/altarboys/components/AltarBoyCard";
 
 const DATA = [
     {

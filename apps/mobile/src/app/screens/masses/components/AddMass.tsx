@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
 import ButtonLabel from "@/components/common/CustomButton";
-import AddMassButton from "./AddMassButton";
 
 const AddMass = () => {
     return (

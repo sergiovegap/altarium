@@ -19,9 +19,9 @@ const ProfileLayout = () => {
             initialRouteName="index"
             screenOptions={{
                 headerShown: true,
-                animationDuration: 100,
                 presentation: "card",
                 animation: "fade",
+                animationDuration: 100,
                 headerTitleStyle: {
                     color: accentColor,
                     fontSize: 20,

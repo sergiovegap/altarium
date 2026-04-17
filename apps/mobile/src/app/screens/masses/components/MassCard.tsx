@@ -1,21 +1,15 @@
-// React
-import React from "react";
 import { View, Text, Image } from "react-native";
-// Custom
+import React from "react";
 import ThemedView from "@/components/common/ThemedView";
-import { useThemeColor } from "@/hooks/useThemeColor";
 
 interface Props {
-    id: string;
-    timeStamp: string;
-    priest: string;
+    timeStamp?: string;
+    priest?: string;
 }
 
-const MassCard = ({ id, timeStamp, priest }: Props) => {
-    const { accentColor, gold, accentColor_400 } = useThemeColor();
-
+const MassCard = ({ timeStamp, priest }: Props) => {
     return (
-        <ThemedView className="flex-row items-center border border-gray-300 bg-gray-100 rounded-lg m-2">
+        <ThemedView className="flex-row items-center border border-gray-300 bg-gray-100 rounded-lg mt-1 mb-3">
             <Image
                 source={require("@/assets/icons/eucaristia.png")}
                 //  source={require("@/assets/icons/communion-fill.png")}

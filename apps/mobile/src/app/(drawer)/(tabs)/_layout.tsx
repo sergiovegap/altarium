@@ -40,7 +40,7 @@ const TabLayout = () => {
             }}
         >
             <Tabs.Screen
-                name="masses/index"
+                name="masses"
                 options={{
                     title: "Misas",
                     headerTitle: "Misas",
