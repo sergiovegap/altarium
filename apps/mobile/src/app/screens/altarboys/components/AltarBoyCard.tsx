@@ -4,23 +4,25 @@ import {
     Image,
     ImageSourcePropType,
     Pressable,
+    ViewProps,
 } from "react-native";
 import React from "react";
 import ThemedView from "@/components/common/ThemedView";
+import { useLocalSearchParams } from "expo-router";
 
-interface Props {
-    id: string;
+interface Props extends ViewProps {
     name: string;
     profilePhoto?: ImageSourcePropType;
+    onPress?: () => void;
 }
 
-const AltarBoyCard = ({ id, name, profilePhoto }: Props) => {
+const AltarBoyCard = ({ name, profilePhoto, onPress }: Props) => {
     return (
-        <Pressable>
+        <Pressable onPress={onPress}>
             <ThemedView className="flex-row items-center justify-between">
                 <View className="flex-row items-center">
                     <Image
-                        source={require("@/assets/images/profile.png")}
+                        source={profilePhoto}
                         style={{
                             width: 45,
                             height: 45,

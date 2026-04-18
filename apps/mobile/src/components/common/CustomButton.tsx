@@ -10,7 +10,7 @@ import {
 
 interface Props extends ViewProps {
     color?: string;
-    // className?: string;
+    className?: string;
     iconSource?: ImageSourcePropType;
     onPress?: PressableProps["onPress"];
 }

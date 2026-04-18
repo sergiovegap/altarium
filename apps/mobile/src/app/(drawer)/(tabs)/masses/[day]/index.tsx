@@ -7,6 +7,7 @@ import MassCard from "@/app/screens/masses/components/MassCard";
 const CalendarDay = () => {
     const { day } = useLocalSearchParams();
     const router = useRouter();
+    const isEmpty: boolean = true;
 
     const masses = [
         { id: "1", time: "08:00", priest: "Sacerdote 1" },
@@ -22,7 +23,7 @@ const CalendarDay = () => {
                     <Pressable
                         onPress={() =>
                             router.push(
-                                `/(drawer)/(tabs)/masses/mass/${item.id}`,
+                                `/(drawer)/(tabs)/masses/[day]/${item.id}`,
                             )
                         }
                     >

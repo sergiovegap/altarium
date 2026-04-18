@@ -5,6 +5,7 @@ import { Pressable, Image } from "react-native";
 import { router, Stack, usePathname } from "expo-router";
 // Custom
 import { useThemeColor } from "@/hooks/useThemeColor";
+import CustomButton from "@/components/common/CustomButton";
 
 const MassesLayout = () => {
     const pathname = usePathname();
@@ -18,19 +19,13 @@ const MassesLayout = () => {
                 headerTitleAlign: "center",
                 contentStyle: { backgroundColor: "white" },
                 animation: "fade",
-                headerLeft: () =>
-                    pathname !== "/(drawer)/(tabs)/masses" && (
-                        <Pressable onPress={() => router.back()}>
-                            <Image
-                                source={require("@/assets/icons/arrow-left.png")}
-                                style={{
-                                    width: 25,
-                                    height: 25,
-                                    tintColor: accentColor,
-                                }}
-                            />
-                        </Pressable>
-                    ),
+                headerLeft: () => (
+                    <CustomButton
+                        onPress={() => router.back()}
+                        color={accentColor}
+                        iconSource={require("@/assets/icons/arrow-left.png")}
+                    />
+                ),
             }}
         >
             <Stack.Screen
@@ -43,14 +38,12 @@ const MassesLayout = () => {
                 name="[day]/index"
                 options={{
                     title: "Misas del día",
-                    // headerTitle: "Misas del día",
                 }}
             />
             <Stack.Screen
                 name="[day]/[id]"
                 options={{
                     title: "Detalle de la misa",
-                    // headerTitle: "Detalle de la misa",
                 }}
             />
         </Stack>

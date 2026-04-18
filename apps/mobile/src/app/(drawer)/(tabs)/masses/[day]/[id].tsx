@@ -13,16 +13,23 @@ interface Props {
 
 const MassByID = ({ timeStamp, priest }: Props) => {
     const { accentColor, gold, accentColor_400 } = useThemeColor();
-    const { id } = useLocalSearchParams();
+    const { id, name } = useLocalSearchParams();
 
     return (
-        <ThemedView className="">
-            <View className="flex-col ml-5">
-                <Text>Detalle de la misa {id}</Text>
-                <Text className="font-bold">{timeStamp}</Text>
-                <Text className="text-sm">{priest}</Text>
-                <Text className="text-sm">Ministros</Text>
-                <Text className="text-sm">Monaguillos</Text>
+        <ThemedView className="m-5 gap-10">
+            <View className="">
+                <Text className="font-bold">Hora:</Text>
+                {/* <Text className="font-bold">{timeStamp}</Text> */}
+            </View>
+            <View className="">
+                <Text className="font-bold">Sacerdote:</Text>
+                <Text className="">{priest}</Text>
+            </View>
+            <View className="">
+                <Text className="font-bold">Ministros Extraordinarios:</Text>
+            </View>
+            <View className="">
+                <Text className="font-bold">Monaguillos:</Text>
             </View>
         </ThemedView>
     );

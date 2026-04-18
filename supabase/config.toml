@@ -140,6 +140,14 @@ enabled = false
 max_buckets = 10
 max_indexes = 5
 
+# Storage photos
+[storage.buckets.profiles]
+public = true
+[storage.buckets.parishes]
+public = true
+[storage.buckets.liturgical_items]
+public = true
+
 # Vector Buckets is available to Supabase Pro plan.
 # [storage.vector.buckets.documents-openai]
 

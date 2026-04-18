@@ -11,8 +11,8 @@ import {
 // Expo
 
 interface Props extends ViewProps {
-    userName: string;
-    imageSource: ImageSourcePropType;
+    userName?: string;
+    imageSource?: ImageSourcePropType;
 }
 
 const Avatar = ({ userName, imageSource }: Props) => {

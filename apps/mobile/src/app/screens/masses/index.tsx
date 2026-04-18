@@ -56,7 +56,7 @@ const monthDevotion = [
 const today = toDateId(new Date());
 
 const Masses = () => {
-    const { accentColor, gold } = useThemeColor();
+    const { accentColor, gold, gold_100, gold_600 } = useThemeColor();
     const [selectedDate, setSelectedDate] = useState(today);
     const [visibleMonth, setVisibleMonth] = useState(today);
 
@@ -120,7 +120,7 @@ const Masses = () => {
                             container: {
                                 borderColor: "transparent",
                                 backgroundColor:
-                                    isPressed || isToday ? gold : undefined,
+                                    isPressed || isToday ? gold_600 : undefined,
                                 borderRadius: isPressed && 30,
                             },
                             content: {
@@ -134,7 +134,7 @@ const Masses = () => {
                             container: {
                                 borderColor: accentColor,
                                 borderRadius: 30,
-                                // backgroundColor: isPressed ? gold : accentColor,
+                                // backgroundColor: isPressed ? gold_600 : accentColor,
                             },
                             content: {
                                 color: "#000000",
@@ -142,7 +142,7 @@ const Masses = () => {
                         }),
                         active: ({ isEndOfRange, isStartOfRange }) => ({
                             container: {
-                                backgroundColor: gold,
+                                backgroundColor: gold_600,
                                 borderTopLeftRadius: isStartOfRange
                                     ? 4
                                     : undefined,
@@ -163,36 +163,6 @@ const Masses = () => {
                     },
                 }}
             ></Calendar.List>
-            {/* <CustomButton
-                color={accentColor}
-                className="self-end"
-                iconSource={require("@/assets/icons/plus.png")}
-                onPress={() => {}}
-            />
-            <AddMassButton />
-            <SectionList
-                sections={DATA}
-                keyExtractor={(item) => item.id}
-                renderSectionHeader={({ section }) => (
-                    <Text
-                        style={{
-                            fontWeight: "bold",
-                            marginTop: 10,
-                            fontSize: 18,
-                        }}
-                    >
-                        {section.date}
-                    </Text>
-                )}
-                renderItem={({ item }) => (
-                    <MassCard
-                        id={item.id}
-                        timeStamp={item.time}
-                        priest={item.priest}
-                    />
-                )}
-                // SectionSeparatorComponent={<ShadowLine width={"100%"} />}
-            /> */}
         </ThemedView>
     );
 };

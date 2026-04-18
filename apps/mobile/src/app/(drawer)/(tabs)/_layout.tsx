@@ -43,7 +43,7 @@ const TabLayout = () => {
                 name="masses"
                 options={{
                     title: "Misas",
-                    headerTitle: "Misas",
+                    // headerTitle: "Misas",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/cristian-calendar-fill.png")}
@@ -54,10 +54,10 @@ const TabLayout = () => {
                 }}
             />
             <Tabs.Screen
-                name="altarboys/index"
+                name="altarboys"
                 options={{
                     title: "Monaguillos",
-                    headerTitle: "Monaguillos",
+                    // headerTitle: "Monaguillos",
                     tabBarIcon: ({ color }) => (
                         <ThemedTabIcon
                             icon={require("@/assets/icons/altar-boy-thurible.png")}
