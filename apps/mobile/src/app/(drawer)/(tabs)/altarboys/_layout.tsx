@@ -1,6 +1,6 @@
 // React
 import React from "react";
-import { View, Text, Pressable, Image } from "react-native";
+import { Pressable, Image } from "react-native";
 // Expo
 import { router, Stack, usePathname } from "expo-router";
 // Custom

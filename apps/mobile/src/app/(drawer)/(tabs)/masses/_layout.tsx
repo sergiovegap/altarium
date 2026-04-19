@@ -22,7 +22,7 @@ const MassesLayout = () => {
                 headerLeft: () => (
                     <CustomButton
                         onPress={() => router.back()}
-                        color={accentColor}
+                        color={"black"}
                         iconSource={require("@/assets/icons/arrow-left.png")}
                     />
                 ),

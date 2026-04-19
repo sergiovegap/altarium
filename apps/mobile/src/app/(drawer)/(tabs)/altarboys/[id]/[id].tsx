@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 // Expo
 import { useLocalSearchParams, useNavigation } from "expo-router";
 // Third-party libraries
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import Avatar from "@/components/common/Avatar";
@@ -18,16 +18,16 @@ const AltarBoyInfo = () => {
         navigation.setOptions({ title: name });
     }, [name]);
 
-    useEffect(() => {
-        const fetchDetalle = async () => {
-            const { data } = await supabase
-                .from("profiles")
-                .select("*")
-                .eq("id", id)
-                .single();
-        };
-        fetchDetalle();
-    }, [id]);
+    // useEffect(() => {
+    //     const fetchDetalle = async () => {
+    //         const { data } = await supabase
+    //             .from("profiles")
+    //             .select("*")
+    //             .eq("id", id)
+    //             .single();
+    //     };
+    //     fetchDetalle();
+    // }, [id]);
 
     return (
         <ThemedView className="m-5 gap-10">
@@ -37,7 +37,12 @@ const AltarBoyInfo = () => {
             />
             <View>
                 <Text className="font-bold">Elementos litúrgicos:</Text>
-                <Text className="text-gray-800">{liturgical_items}</Text>
+                <Text className="text-gray-800">
+                    {liturgical_items
+                        .slice(1, -1)
+                        .toString()
+                        .replace(/,/g, ", ")}
+                </Text>
             </View>
         </ThemedView>
     );

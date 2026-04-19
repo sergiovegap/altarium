@@ -20,24 +20,6 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import { FlashListProps } from "@shopify/flash-list";
 import { router } from "expo-router";
 
-const DATA = [
-    {
-        date: "19-05-2023",
-        data: [{ id: "1", time: "12:00", priest: "Sacerdote 1" }],
-    },
-    {
-        date: "26-05-2023",
-        data: [
-            { id: "2", time: "12:00", priest: "Sacerdote 2" },
-            { id: "3", time: "07:00", priest: "Sacerdote 3" },
-        ],
-    },
-    {
-        date: "03-06-2023",
-        data: [{ id: "4", time: "12:00", priest: "Sacerdote 1" }],
-    },
-];
-
 const monthDevotion = [
     { id: "1", name: "Santísimo Nombre de Jesús" },
     { id: "2", name: "Sagrada Familia" },
@@ -60,15 +42,15 @@ const Masses = () => {
     const [selectedDate, setSelectedDate] = useState(today);
     const [visibleMonth, setVisibleMonth] = useState(today);
 
-    const handleViewableItemsChanged = useCallback<
-        NonNullable<FlashListProps<CalendarMonth>["onViewableItemsChanged"]>
-    >(({ viewableItems }) => {
-        const firstVisibleItem = viewableItems.find((item) => item.isViewable);
+    // const handleViewableItemsChanged = useCallback<
+    //     NonNullable<FlashListProps<CalendarMonth>["onViewableItemsChanged"]>
+    // >(({ viewableItems }) => {
+    //     const firstVisibleItem = viewableItems.find((item) => item.isViewable);
 
-        if (firstVisibleItem) {
-            setVisibleMonth(firstVisibleItem.item.id);
-        }
-    }, []);
+    //     if (firstVisibleItem) {
+    //         setVisibleMonth(firstVisibleItem.item.id);
+    //     }
+    // }, []);
 
     const getMonthDevotion = (date: Date) => {
         const monthIndex = date.getMonth();
@@ -77,7 +59,7 @@ const Masses = () => {
 
     return (
         <ThemedView>
-            <Text className="text-3xl font-bold">
+            <Text className="text-3xl font-bold mb-5">
                 {visibleMonth.split("-")[0]}
             </Text>
             <Calendar.List
@@ -100,7 +82,7 @@ const Masses = () => {
                 onCalendarDayPress={(day) => {
                     router.push(`/(drawer)/(tabs)/masses/${day}`);
                 }}
-                onViewableItemsChanged={handleViewableItemsChanged}
+                // onViewableItemsChanged={handleViewableItemsChanged}
                 theme={{
                     rowMonth: {
                         content: {

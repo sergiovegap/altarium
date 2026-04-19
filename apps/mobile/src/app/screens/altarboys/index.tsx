@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 // Third-party libraries
 import { FlashList } from "@shopify/flash-list";
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import ShadowLine from "@/components/common/ShadowLine";
@@ -35,14 +35,14 @@ const AltarBoys = () => {
     const { id } = useLocalSearchParams();
     const [altarBoys, setAltarBoys] = useState([]);
 
-    useEffect(() => {
-        // Acá hacés la query
-        const fetchAltarBoys = async () => {
-            const { data } = await supabase.from("profiles").select("*");
-            setAltarBoys(data);
-        };
-        fetchAltarBoys();
-    }, []);
+    // useEffect(() => {
+    //     // Acá hacés la query
+    //     const fetchAltarBoys = async () => {
+    //         const { data, error } = await supabase.from("profiles").select("*");
+    //         setAltarBoys(data);
+    //     };
+    //     fetchAltarBoys();
+    // }, []);
 
     return (
         <ThemedView>
@@ -55,7 +55,7 @@ const AltarBoys = () => {
                         profilePhoto={item.profilePhoto}
                         onPress={() =>
                             router.push(
-                                `/(drawer)/(tabs)/altarboys/[id]/${item.id}?name=${encodeURIComponent(item.name)}`,
+                                `/(drawer)/(tabs)/altarboys/[id]/${item.id}?name=${encodeURIComponent(item.name)}&profilePhoto=${item.profilePhoto}&liturgical_items=${encodeURIComponent(JSON.stringify(item.liturgical_items))}`,
                             )
                         }
                     />
