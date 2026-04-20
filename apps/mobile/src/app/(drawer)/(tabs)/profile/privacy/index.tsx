@@ -1,8 +1,10 @@
+// React
 import React from "react";
-import Privacy from "@/app/screens/privacy";
+// Custom
+import ThemedView from "@/components/common/ThemedView";
 
-const PrivacyScreen = () => {
-    return <Privacy />;
+const Privacy = () => {
+    return <ThemedView></ThemedView>;
 };
 
-export default PrivacyScreen;
+export default Privacy;

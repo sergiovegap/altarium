@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 interface Props extends ViewProps {
-    userRole: string;
+    userRole?: string;
     iconSource?: ImageSourcePropType;
 }
 

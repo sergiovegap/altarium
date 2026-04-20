@@ -1,10 +1,13 @@
 // React
 import React from "react";
-// Custom
-import Formation from "@/app/screens/formation";
+import { Text } from "react-native";
+// Expo
 
-const FormationScreen = () => {
-    return <Formation />;
+// Custom
+import ThemedView from "@/components/common/ThemedView";
+
+const Formation = () => {
+    return <></>;
 };
 
-export default FormationScreen;
+export default Formation;

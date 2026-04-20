@@ -1,10 +1,12 @@
 // React
 import React from "react";
+// Expo
+
 // Custom
-import ArtificialIntelligenceScreen from "@/app/screens/ai";
+import ThemedView from "@/components/common/ThemedView";
 
 const ArtificialIntelligence = () => {
-    return <ArtificialIntelligenceScreen />;
+    return <ThemedView></ThemedView>;
 };
 
 export default ArtificialIntelligence;

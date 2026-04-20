@@ -72,6 +72,7 @@ const ProfileLayout = () => {
                 name="user-masses-list/index"
                 options={{
                     headerTitle: "Mis Misas",
+                    presentation: "modal",
                 }}
             />
             <Stack.Screen

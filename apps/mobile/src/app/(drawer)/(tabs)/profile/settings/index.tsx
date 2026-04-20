@@ -1,8 +1,10 @@
+// React
 import React from "react";
-import Settings from "@/app/screens/settings";
+// Custom
+import ThemedView from "@/components/common/ThemedView";
 
-const SettingsScreen = () => {
-    return <Settings />;
+const Settings = () => {
+    return <ThemedView></ThemedView>;
 };
 
-export default SettingsScreen;
+export default Settings;

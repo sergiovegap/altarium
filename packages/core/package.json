@@ -1,5 +1,5 @@
 {
-  "name": "@altarium/core",
-  "main": "src/index.ts",
-  "types": "src/index.ts"
+    "name": "@altarium/core",
+    "main": "src/index.ts",
+    "types": "src/index.ts"
 }

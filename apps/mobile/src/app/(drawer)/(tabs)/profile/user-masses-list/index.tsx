@@ -1,12 +1,15 @@
 // React
 import React from "react";
-import { FlatList, Pressable } from "react-native";
-// Expo
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { View, Text, FlatList, Pressable } from "react-native";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import MassCard from "@/components/screens/masses/MassCard";
 import NoMasses from "@/components/screens/masses/NoMasses";
+import { router } from "expo-router";
+
+interface Props {
+    item: typeof MassCard;
+}
 
 const DATA = [
     {
@@ -51,12 +54,9 @@ const DATA = [
     },
 ];
 
-const CalendarDay = () => {
-    const { day } = useLocalSearchParams();
-    const router = useRouter();
-
+const UserMassesList = () => {
     return (
-        <ThemedView className="m-2">
+        <View style={{ flex: 1 }}>
             <FlatList
                 data={DATA}
                 keyExtractor={(item) => item.data.id}
@@ -79,8 +79,8 @@ const CalendarDay = () => {
                     )
                 }
             />
-        </ThemedView>
+        </View>
     );
 };
 
-export default CalendarDay;
+export default UserMassesList;
