@@ -31,7 +31,8 @@ const TabLayout = () => {
                     fontSize: 20,
                     fontWeight: "bold",
                 },
-                tabBarActiveTintColor: gold,
+                // tabBarActiveTintColor: gold,
+                tabBarActiveTintColor: "black",
                 tabBarInactiveTintColor: "white",
                 tabBarStyle: {
                     // backgroundColor: "white",

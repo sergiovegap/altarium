@@ -8,17 +8,12 @@ import {
     Calendar,
     CalendarMonth,
     toDateId,
-    fromDateId,
 } from "@marceloterreiro/flash-calendar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { FlashListProps } from "@shopify/flash-list";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
-import MassCard from "./[day]/[id]";
-import ShadowLine from "@/components/common/ShadowLine";
-import AddMassButton from "@/components/screens/masses/AddMassButton";
-import CustomButton from "@/components/common/CustomButton";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 const monthDevotion = [

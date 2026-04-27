@@ -5,14 +5,14 @@ import { View, Text, Image, ImageSourcePropType } from "react-native";
 interface Props {
     name: string;
     description: string;
-    source: ImageSourcePropType;
+    imageSource?: ImageSourcePropType;
 }
 
-const LiturgicalItemModal = ({ name, description, source }: Props) => {
+const LiturgicalItemModal = ({ name, description, imageSource }: Props) => {
     return (
         <View className="flex-col items-center">
             <Image
-                source={source}
+                source={imageSource}
                 style={{
                     width: 100,
                     height: 100,

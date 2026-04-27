@@ -1,28 +1,22 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "lib": [
-      "ES2017"
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "lib": ["ES2017"],
+        "jsx": "react-native",
+        "strict": true,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@/assets/*": ["./assets/*"],
+            "@altarium/packages/*": ["../../packages/*"]
+        }
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx",
+        ".expo/types/**/*.ts",
+        "expo-env.d.ts",
+        "nativewind-env.d.ts",
+        "../../packages/core/utils/liturgical-items-mock.ts"
     ],
-    "jsx": "react-native",
-    "strict": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/assets/*": [
-        "./assets/*"
-      ]
-    }
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "nativewind-env.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "exclude": ["node_modules"]
 }

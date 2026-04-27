@@ -1,35 +1,16 @@
 // React
-import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList } from "react-native";
 // Third-party libraries
 import { FlashList } from "@shopify/flash-list";
 // import { supabase } from "@/lib/supabase";
+// Expo
+import { router, useLocalSearchParams } from "expo-router";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import ShadowLine from "@/components/common/ShadowLine";
 import AltarBoyCard from "@/components/screens/altarboys/AltarBoyCard";
-import { router, useLocalSearchParams } from "expo-router";
-
-const DATA = [
-    {
-        id: "1",
-        name: "Pablo Fernandez Perez",
-        profilePhoto: require("@/assets/images/development/boy-1.png"),
-        liturgical_items: ["Ambón", "Incensario", "Aspersorium"],
-    },
-    {
-        id: "2",
-        name: "Jorge Gutierrez Garcia",
-        profilePhoto: require("@/assets/images/development/boy-2.png"),
-        liturgical_items: ["Ambón", "Incensario", "Aspersorium"],
-    },
-    {
-        id: "3",
-        name: "Miguel Ojeda Hernandez",
-        profilePhoto: require("@/assets/images/development/boy-3.png"),
-        liturgical_items: ["Ambón", "Incensario", "Aspersorium"],
-    },
-];
+import AltarBoysMock from "@altarium/packages/core/utils/altarboys-profiles-mock";
 
 const AltarBoys = () => {
     const { id } = useLocalSearchParams();
@@ -47,7 +28,7 @@ const AltarBoys = () => {
     return (
         <ThemedView>
             <FlashList
-                data={DATA}
+                data={AltarBoysMock}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <AltarBoyCard

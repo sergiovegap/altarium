@@ -16,6 +16,7 @@ import UserLiturgicalItemsList from "@/app/(drawer)/(tabs)/profile/liturgical-it
 import LiturgicalItemCard from "@/components/screens/liturgical-items/LiturgicalItemCard";
 import { useSession } from "@/features/auth/useSession";
 import { useProfile } from "@/features/auth/useProfile";
+import ListItem from "@/components/common/ListItem";
 
 interface Props {
     userRole?: string;
@@ -99,9 +100,7 @@ const Profile = () =>
                         <>
                             {selectedIndex === 0 && <UserMassesList />}
                             {selectedIndex === 1 && (
-                                <UserLiturgicalItemsList
-                                    item={LiturgicalItemCard}
-                                />
+                                <UserLiturgicalItemsList item={ListItem} />
                             )}
                         </>
                     </>
