@@ -50,7 +50,7 @@ CREATE TABLE priests (
 CREATE TABLE masses (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    day DATE NOT NULL,
-   time TIMESTAMP NOT NULL,
+   time TIME NOT NULL,
    priest_id UUID REFERENCES priests(id),
    parish_id UUID NOT NULL REFERENCES parishes(id) ON DELETE CASCADE,
    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -73,13 +73,19 @@ CREATE TABLE altar_boys_masses (
    altar_boy_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
    PRIMARY KEY (mass_id, altar_boy_id)
 );
--- 9. Elementos que sabe usar cada monaguillo
+-- 9. Ministros asignados a una misa
+CREATE TABLE ministers_masses (
+   mass_id UUID NOT NULL REFERENCES masses(id) ON DELETE CASCADE,
+   minister_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+   PRIMARY KEY (mass_id, minister_id)
+);
+-- 10. Elementos que sabe usar cada monaguillo
 CREATE TABLE altar_boy_items (
    altar_boy_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
    item_id UUID NOT NULL REFERENCES liturgical_items(id) ON DELETE CASCADE,
    PRIMARY KEY (altar_boy_id, item_id)
 );
--- 10. Elementos que lleva cada monaguillo en una misa específica
+-- 11. Elementos que lleva cada monaguillo en una misa específica
 CREATE TABLE altar_boy_mass_items (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    mass_id UUID NOT NULL REFERENCES masses(id) ON DELETE CASCADE,
@@ -88,7 +94,7 @@ CREATE TABLE altar_boy_mass_items (
    FOREIGN KEY (mass_id, item_id) REFERENCES mass_items(mass_id, item_id) ON DELETE CASCADE,
    FOREIGN KEY (mass_id, altar_boy_id) REFERENCES altar_boys_masses(mass_id, altar_boy_id) ON DELETE CASCADE
 );
--- 11. Horario fijo de misas por parroquia
+-- 12. Horario fijo de misas por parroquia
 CREATE TABLE parish_mass_schedule (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    day DATE NOT NULL,

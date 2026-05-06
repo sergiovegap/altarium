@@ -61,3 +61,24 @@ VALUES (
       'Vinajeras',
       'Contienen el vino y el agua que se utilizan en la Misa'
    );
+-- Parroquias
+INSERT INTO parishes (id, name, address)
+VALUES 
+  ('11111111-1111-1111-1111-111111111111', 'Parroquia San Juan', 'Calle 123 # 4-56'),
+  ('22222222-2222-2222-2222-222222222222', 'Parroquia Santa María', 'Carrera 789 # 10-11');
+-- Sacerdotes (requiere religious_order_id)
+INSERT INTO priests (id, name, last_name, religious_order_id, parish_id)
+VALUES 
+  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Raul', 'Rodríguez', 
+   (SELECT id FROM religious_orders WHERE name = 'Diocesano' LIMIT 1),
+   '11111111-1111-1111-1111-111111111111'),
+  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Javier', 'García',
+   (SELECT id FROM religious_orders WHERE name = 'Franciscano' LIMIT 1),
+   '11111111-1111-1111-1111-111111111111');
+-- Misas (el día debe ser DATE, usamos formato ISO)
+INSERT INTO masses (id, day, time, priest_id, parish_id)
+VALUES 
+  ('dddddddd-dddd-dddd-dddd-dddddddddddd', '2023-05-19', '08:00:00', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '11111111-1111-1111-1111-111111111111'),
+  ('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', '2023-05-26', '12:00:00', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111'),
+  ('ffffffff-ffff-ffff-ffff-ffffffffffff', '2023-05-26', '13:00:00', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '11111111-1111-1111-1111-111111111111'),
+  ('gggggggg-gggg-gggg-gggg-gggggggggggg', '2023-06-03', '20:00:00', NULL, '11111111-1111-1111-1111-111111111111');
