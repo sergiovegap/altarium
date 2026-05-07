@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Text } from "react-native";
 // Expo
 // Supabase
-import { supabase } from "@/utils/supabase/supabase";
+import { supabase } from "@/lib/supabase";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import { useThemeColor } from "@/hooks/useThemeColor";

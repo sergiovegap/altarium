@@ -1,7 +1,7 @@
 // React
 import { useEffect, useState } from "react";
 // Supabase
-import { supabase } from "@/utils/supabase/supabase";
+import { supabase } from "@/lib/supabase";
 
 interface MassDetails {
   id: string;

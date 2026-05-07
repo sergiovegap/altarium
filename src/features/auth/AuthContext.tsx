@@ -1,67 +1,64 @@
-import { supabase } from "@/utils/supabase/supabase";
-import * as SecureStore from "expo-secure-store";
+// React
 import { createContext, useContext, useEffect, useState } from "react";
+// Expo
+import { router } from "expo-router";
+// Supabase
+import { supabase } from "@/lib/supabase";
+import { Session } from "@supabase/supabase-js";
 
-type AuthContextType = {
-  user: any;
+type AuthData = {
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
+  session: Session | null;
 };
 
-const AuthContext = createContext<AuthContextType>({} as any);
+const AuthContext = createContext<AuthData>({
+  loading: true,
+  session: null,
+});
 
-export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+interface Props {
+  children: React.ReactNode;
+}
 
-  // Restaurar sesión
+export const AuthProvider = (props: Props) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [session, setSession] = useState<Session | null>(null);
+
   useEffect(() => {
-    const loadSession = async () => {
-      const token = await SecureStore.getItemAsync("session");
+    async function getSession() {
+      const { data, error } = await supabase.auth.getSession();
 
-      if (token) {
-        const { data } = await supabase.auth.getUser(token);
-        setUser(data.user ?? null);
+      if (error) throw error;
+
+      if (data.session) {
+        setSession(data.session);
+      } else {
+        router.replace("/login");
       }
 
       setLoading(false);
-    };
+    }
+    getSession();
 
-    loadSession();
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        setSession(session);
+        setLoading(false);
+
+        if (session) {
+          router.replace("/(drawer)/(tabs)/masses");
+        } else {
+          router.replace("/login");
+        }
+      },
+    );
+
+    return () => authListener?.subscription.unsubscribe();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-
-    await SecureStore.setItemAsync("session", data.session.access_token);
-    setUser(data.user);
-  };
-
-  const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-  };
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    await SecureStore.deleteItemAsync("session");
-    setUser(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
-      {children}
+    <AuthContext.Provider value={{ loading, session }}>
+      {props.children}
     </AuthContext.Provider>
   );
 };

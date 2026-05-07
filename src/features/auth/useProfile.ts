@@ -1,5 +1,5 @@
+import { supabase } from "@/lib/supabase";
 import type { Profile, UserRole } from "@/types";
-import { supabase } from "@/utils/supabase/supabase";
 import { useEffect, useState } from "react";
 import { useSession } from "./useSession";
 

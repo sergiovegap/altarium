@@ -1,4 +1,4 @@
-import { useAuth } from "@/features/auth/AuthContext";
+import { useAuth } from "@/features/auth/AuthContextIA";
 import { Button, Text, View } from "react-native";
 
 const SignOut = () => {

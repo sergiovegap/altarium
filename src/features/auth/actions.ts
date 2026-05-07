@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase/supabase";
+import { supabase } from "@/lib/supabase";
 import type { SignInForm, SignUpForm } from "./types";
 
 export const signUp = async (form: SignUpForm) => {
