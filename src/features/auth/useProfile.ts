@@ -1,6 +1,8 @@
+// React
+import { useEffect, useState } from "react";
+// Custom
 import { supabase } from "@/lib/supabase";
 import type { Profile, UserRole } from "@/types";
-import { useEffect, useState } from "react";
 import { useSession } from "./useSession";
 
 export const useProfile = () => {

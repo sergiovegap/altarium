@@ -11,6 +11,7 @@ import {
 interface Props extends ViewProps {
   title?: string;
   color?: string;
+  textColor?: string;
   className?: string;
   iconSource?: ImageSourcePropType;
   onPress?: PressableProps["onPress"];
@@ -19,6 +20,7 @@ interface Props extends ViewProps {
 const CustomButtonLabel = ({
   title,
   color,
+  textColor,
   className,
   iconSource,
   onPress,
@@ -32,7 +34,9 @@ const CustomButtonLabel = ({
         source={iconSource}
         style={{ width: 25, height: 25, tintColor: color }}
       />
-      <Text className="text-primary text-xl">{title}</Text>
+      <Text className="text-primary text-xl" style={{ color: textColor }}>
+        {title}
+      </Text>
     </Pressable>
   );
 };

@@ -1,10 +1,8 @@
 // React
-import { Text, View } from "react-native";
+import { Pressable, Text } from "react-native";
 // Custom
-import CustomButton from "@/components/common/CustomButton";
 import ThemedView from "@/components/common/ThemedView";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import AddMass from "./AddMass";
 
 interface Props {
   className?: string;
@@ -16,20 +14,14 @@ const NoMasses = ({ className, onPress }: Props) => {
 
   return (
     <ThemedView className={className}>
-      <Text className="font-bold">!No hay Misas registradas!</Text>
-      {/* <AddMass onPress={onPress} /> */}
-      <View
-        className="m-2 flex-row items-center justify-center rounded-lg p-1 pl-4 pr-4"
+      <Text className="mb-3 text-2xl font-bold">!No hay Misas!</Text>
+      <Pressable
+        onPress={onPress}
+        className="flex-row items-center rounded-lg p-2"
         style={{ backgroundColor: accentColor }}
       >
         <Text className="font-bold color-white">Añadir Misa</Text>
-        <CustomButton
-          iconSource={require("@/assets/icons/plus.png")}
-          style={{ width: 25, height: 25 }}
-          color="white"
-          onPress={onPress}
-        />
-      </View>
+      </Pressable>
     </ThemedView>
   );
 };

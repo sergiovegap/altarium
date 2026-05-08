@@ -45,8 +45,12 @@ const MassesLayout = () => {
         }}
       />
       <Stack.Screen
-        name="[day]/massForm"
-        options={{ title: "Agregar misa", presentation: "modal" }}
+        name="form/index"
+        options={{
+          title: "Registrar Misa",
+          presentation: "pageSheet",
+          headerLeft: () => null,
+        }}
       />
     </Stack>
   );

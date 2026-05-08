@@ -59,7 +59,12 @@ const CalendarDay = () => {
   return masses.length === 0 ? (
     <NoMasses
       className="items-center justify-center"
-      onPress={() => router.push("./massForm")}
+      onPress={() =>
+        router.push({
+          pathname: "/(drawer)/(tabs)/masses/form",
+          params: { day },
+        })
+      }
     />
   ) : (
     <ThemedView className="m-2">
@@ -70,8 +75,6 @@ const CalendarDay = () => {
           <Pressable
             onPress={() =>
               router.push(
-                // `/(drawer)/(tabs)/masses/[day]/${item.data.id}?time=${item.data.time}&priest=${item.data.priest}&ministers=${encodeURIComponent(JSON.stringify(item.data.ministers))}&altarBoys=${encodeURIComponent(JSON.stringify(item.data.altarBoys))}`,
-                // `/(drawer)/(tabs)/masses/[day]/${item.data.id}?time=${item.data.time}&priest=${item.data.priest}&ministers=${item.data.ministers}&altarBoys=${encodeURIComponent(JSON.stringify(item.data.altarBoys))}`,
                 `/(drawer)/(tabs)/masses/[day]/${item.id}?time=${item.time}&priest=${item.priest}&ministers=${encodeURIComponent(JSON.stringify(item.ministers))}&altarBoys=${encodeURIComponent(JSON.stringify(item.altarBoys))}`,
               )
             }

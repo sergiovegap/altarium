@@ -1,9 +1,10 @@
 // React
 import { FlatList, Pressable, View } from "react-native";
+// Expo
+import { router } from "expo-router";
 // Custom
 import MassCard from "@/components/screens/masses/MassCard";
 import NoMasses from "@/components/screens/masses/NoMasses";
-import { router } from "expo-router";
 
 interface Props {
   item: typeof MassCard;

@@ -33,7 +33,7 @@ export const AuthProvider = (props: Props) => {
       if (data.session) {
         setSession(data.session);
       } else {
-        router.replace("/login");
+        router.replace("/auth/login");
       }
 
       setLoading(false);
@@ -48,7 +48,7 @@ export const AuthProvider = (props: Props) => {
         if (session) {
           router.replace("/(drawer)/(tabs)/masses");
         } else {
-          router.replace("/login");
+          router.replace("/auth/login");
         }
       },
     );

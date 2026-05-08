@@ -16,8 +16,8 @@ CREATE POLICY "profiles_insert" ON profiles FOR
 INSERT WITH CHECK (id = auth.uid());
 -- Parishes
 -- Todos los autenticados ven las parroquias (necesario para el registro)
-CREATE POLICY "parishes_select" ON parishes FOR
-SELECT USING (auth.uid() IS NOT NULL);
+CREATE POLICY "parishes_select_anon" ON parishes FOR
+SELECT USING (true);
 -- Priests
 -- Todos en la misma parroquia ven los sacerdotes
 CREATE POLICY "priests_select" ON priests FOR

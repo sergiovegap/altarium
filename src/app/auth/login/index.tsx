@@ -1,32 +1,27 @@
 // React
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 // Expo
+import { router } from "expo-router";
 // Third-party libraries
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import z from "zod";
-// Curstom
+import * as z from "zod";
+// Custom
 import CustomTextInput from "@/components/common/CustomTextInput";
 import ThemedView from "@/components/common/ThemedView";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { supabase } from "@/lib/supabase";
 
-const RegisterSchema = z.object({
+const LoginSchema = z.object({
   email: z.string(),
-  password: z
-    .string()
-    .min(5, "La contraseña debe tener al menos 5 caracteres")
-    .max(20, "La contraseña debe tener como máximo 20 caracteres"),
+  password: z.string(),
 });
 
-type RegisterSchemaType = z.infer<typeof RegisterSchema>;
+type LoginSchemaType = z.infer<typeof LoginSchema>;
 
-const Register = () => {
+const Login = () => {
   const { accentColor } = useThemeColor();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -34,34 +29,31 @@ const Register = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterSchemaType>({
-    resolver: zodResolver(RegisterSchema),
+  } = useForm<LoginSchemaType>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: RegisterSchemaType) => {
+  const onSubmit = async (data: LoginSchemaType) => {
     try {
       setLoading(true);
       setError(null);
 
-      const { error: signUpError } = await supabase.auth.signUp({
+      const { error: loginError } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
 
-      if (signUpError) throw signUpError;
+      if (loginError) throw loginError;
 
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (signInError) throw signInError;
+      router.replace("/(drawer)/(tabs)/masses");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error inesperado");
+      if (err instanceof z.ZodError) {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -69,25 +61,7 @@ const Register = () => {
 
   return (
     <ThemedView className="flex-1 justify-center gap-4">
-      <Text className="text-3xl font-bold">Registrarse</Text>
-      <View className="gap-1">
-        <Text className="font-medium">Nombre</Text>
-        <CustomTextInput
-          placeholder="Nombre"
-          // onChangeText={setEmail}
-          iconSource={require("@/assets/icons/user-fill.png")}
-          iconColor={"#d1d5db"}
-        />
-      </View>
-      <View className="gap-1">
-        <Text className="font-medium">Apellidos</Text>
-        <CustomTextInput
-          placeholder="Apellidos"
-          // onChangeText={setEmail}
-          iconSource={require("@/assets/icons/user-fill.png")}
-          iconColor={"#d1d5db"}
-        />
-      </View>
+      <Text className="text-3xl font-bold">Iniciar sesión</Text>
       <View className="gap-1">
         <Text className="font-medium">Correo electrónico</Text>
         <Controller
@@ -124,22 +98,24 @@ const Register = () => {
         />
       </View>
 
-      {Object.values(errors).map((err, i) => (
-        <Text key={i} className="text-sm text-blue-500">
-          {err.message}
-        </Text>
-      ))}
-      {/* {error && <Text className="text-sm text-red-500">{error}</Text>} */}
+      {error ? <Text>{error}</Text> : null}
 
       <Pressable
         onPress={handleSubmit(onSubmit)}
         className="rounded-lg border border-gray-300 p-3"
         style={{ backgroundColor: accentColor }}
       >
-        <Text className="text-center font-bold text-white">Registrarse</Text>
+        <Text className="text-center font-bold text-white">Entrar</Text>
       </Pressable>
+
+      <View className="flex-row justify-center gap-2">
+        <Text>¿Aún no tienes una cuenta?</Text>
+        <Pressable onPress={() => router.push("/auth/register")}>
+          <Text className="font-bold">Regístrate</Text>
+        </Pressable>
+      </View>
     </ThemedView>
   );
 };
 
-export default Register;
+export default Login;
