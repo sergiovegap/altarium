@@ -3,7 +3,6 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import { Text } from "react-native-gesture-handler";
-// Expo
 // Custom
 import UserLiturgicalItemsList from "@/app/(drawer)/(tabs)/profile/liturgical-items";
 import UserMassesList from "@/app/(drawer)/(tabs)/profile/user-masses-list";
@@ -12,13 +11,12 @@ import ListItem from "@/components/common/ListItem";
 import ShadowLine from "@/components/common/ShadowLine";
 import ThemedView from "@/components/common/ThemedView";
 import UserRole from "@/components/common/UserRole";
-import { useProfile } from "@/features/auth/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { supabase } from "@/lib/supabase";
 
 const Profile = () => {
-  const { accentColor, accentColor_400, gold, gold_600, gold_50 } =
-    useThemeColor();
+  const { gold_600 } = useThemeColor();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { loadingProfile, profile, userRole } = useProfile();
   const [parishName, setParishName] = useState("");
@@ -49,9 +47,7 @@ const Profile = () => {
       <View className="flex flex-col items-center">
         <Avatar
           userName={profile?.name + " " + profile?.last_name}
-          imageSource={
-            profile?.photo || require("@/assets/images/development/profile.png")
-          }
+          imageSource={profile?.photo ? { uri: profile.photo } : undefined}
         />
         <View className="mb-3 flex-row items-center">
           <Image
@@ -76,15 +72,11 @@ const Profile = () => {
           <View className="items-center">
             <SegmentedControl
               values={["Misas", "Objetos Litúrgicos"]}
-              // selectedIndex={selectedIndex}
-              selectedIndex={0}
+              selectedIndex={selectedIndex}
               onChange={(event) => {
                 setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
               }}
-              // tintColor={accentColor}
-              // backgroundColor={accentColor_400}
               tintColor={gold_600}
-              // backgroundColor={gold}
               activeFontStyle={{
                 color: "white",
               }}

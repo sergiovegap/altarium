@@ -1,45 +1,45 @@
 // React
-import { useThemeColor } from "@/hooks/useThemeColor";
-import React from "react";
 import {
-    View,
-    Text,
-    ImageSourcePropType,
-    Image,
-    ViewProps,
+  Image,
+  ImageSourcePropType,
+  Text,
+  View,
+  ViewProps,
 } from "react-native";
-// Expo
 
 interface Props extends ViewProps {
-    userName?: string;
-    imageSource?: ImageSourcePropType;
+  userName?: string;
+  imageSource?: ImageSourcePropType;
 }
 
-const Avatar = ({ userName, imageSource }: Props) => {
-    return (
-        <View
-            className="flex justify-center items-center shadow-md mb-1"
-            style={{}}
-        >
-            <Image
-                style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 100,
-                }}
-                source={imageSource}
-            />
-            <Text
-                style={{
-                    color: "black",
-                    fontWeight: 500,
-                }}
-                className="text-2xl"
-            >
-                {userName}
-            </Text>
-        </View>
-    );
+const Avatar = ({
+  userName,
+  imageSource = require("@/assets/images/development/avatar.png"),
+}: Props) => {
+  return (
+    <View
+      className="mb-1 flex items-center justify-center shadow-md"
+      style={{}}
+    >
+      <Image
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: 100,
+        }}
+        source={imageSource}
+      />
+      <Text
+        style={{
+          color: "black",
+          fontWeight: 500,
+        }}
+        className="text-2xl"
+      >
+        {userName}
+      </Text>
+    </View>
+  );
 };
 
 export default Avatar;

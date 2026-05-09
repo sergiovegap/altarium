@@ -6,10 +6,6 @@ import { router } from "expo-router";
 import MassCard from "@/components/screens/masses/MassCard";
 import NoMasses from "@/components/screens/masses/NoMasses";
 
-interface Props {
-  item: typeof MassCard;
-}
-
 const DATA = [
   {
     date: "19-05-2023",
@@ -63,9 +59,7 @@ const UserMassesList = () => {
           item ? (
             <Pressable
               onPress={() =>
-                router.push(
-                  `/(drawer)/(tabs)/masses/[day]/${item.data.id}?time=${item.data.time}&priest=${item.data.priest}&ministers=${encodeURIComponent(JSON.stringify(item.data.ministers))}&altarBoys=${encodeURIComponent(JSON.stringify(item.data.altarBoys))}`,
-                )
+                router.push(`/(drawer)/(tabs)/masses/day?id=${item.data.id}`)
               }
             >
               <MassCard time={item.data.time} priest={item.data.priest} />
@@ -73,9 +67,7 @@ const UserMassesList = () => {
           ) : (
             <NoMasses
               className="items-center justify-center"
-              onPress={() =>
-                router.push("/(drawer)/(tabs)/masses/[day]/massForm")
-              }
+              onPress={() => router.push("/(drawer)/(tabs)/masses/form")}
             />
           )
         }

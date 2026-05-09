@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // Custom
 import { supabase } from "@/lib/supabase";
 import type { Profile, UserRole } from "@/types";
-import { useSession } from "./useSession";
+import { useSession } from "../features/auth/useSession";
 
 export const useProfile = () => {
   const { session, loading } = useSession();
@@ -33,8 +33,6 @@ export const useProfile = () => {
         };
 
         fetchProfile();
-      } else {
-        setLoadingProfile(false);
       }
     }
   }, [session, loading]);

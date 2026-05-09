@@ -12,13 +12,17 @@ import {
 // Expo
 import { router, useLocalSearchParams } from "expo-router";
 // Third-party libraries
+import { DatePicker, Host } from "@expo/ui/swift-ui";
+import { datePickerStyle } from "@expo/ui/swift-ui/modifiers";
 import { zodResolver } from "@hookform/resolvers/zod";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useForm } from "react-hook-form";
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from "@react-native-community/datetimepicker";
+import { useForm, useWatch } from "react-hook-form";
 import * as z from "zod";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
-import { useProfile } from "@/features/auth/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { supabase } from "@/lib/supabase";
 import { Image } from "expo-image";
@@ -37,7 +41,7 @@ const MassSchema = z.object({
 type MassSchemaType = z.infer<typeof MassSchema>;
 
 const MassForm = () => {
-  const { accentColor, gray_400 } = useThemeColor();
+  const { accentColor, gray_400, gold_600 } = useThemeColor();
   const { day: dayParam } = useLocalSearchParams<{ day: string }>();
   const { profile } = useProfile();
 
@@ -58,13 +62,11 @@ const MassForm = () => {
 
   const initialDate = dayParam ? new Date(dayParam + "T12:00:00") : new Date();
   const initialTime = new Date();
-  initialTime.setHours(8, 0, 0, 0);
 
   const {
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<MassSchemaType>({
     resolver: zodResolver(MassSchema),
@@ -77,9 +79,11 @@ const MassForm = () => {
     },
   });
 
-  const selectedPriestId = watch("priestId");
-  const selectedMinisters = watch("ministers");
-  const selectedAltarBoysWatched = watch("altarBoys");
+  const selectedPriestId = useWatch({ control, name: "priestId" });
+  const selectedMinisters = useWatch({ control, name: "ministers" });
+  const selectedAltarBoysWatched = useWatch({ control, name: "altarBoys" });
+  const selectedDay = useWatch({ control, name: "day" });
+  const selectedTime = useWatch({ control, name: "time" });
 
   // ── Load data ──────────────────────────────────────────
   useEffect(() => {
@@ -123,7 +127,7 @@ const MassForm = () => {
   };
 
   const formatTime = (date: Date) =>
-    date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    date.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
 
   const formatDate = (date: Date) =>
     date.toLocaleDateString("es-ES", {
@@ -133,11 +137,22 @@ const MassForm = () => {
     });
 
   const openPicker = (mode: "date" | "time") => {
-    setPickerMode(mode);
-    setShowPicker(true);
+    if (Platform.OS === "android") {
+      DateTimePickerAndroid.open({
+        value: mode === "date" ? selectedDay : selectedTime,
+        mode,
+        is24Hour: true,
+        onChange: (event, date) => {
+          if (date) setValue(mode === "date" ? "day" : "time", date);
+        },
+      });
+    } else {
+      setPickerMode(mode);
+      setShowPicker(true);
+    }
   };
 
-  // ── Submit ─────────────────────────────────────────────
+  // ── Registrar Misa ─────────────────────────────────────────────
   const onSubmit = async (data: MassSchemaType) => {
     try {
       setLoading(true);
@@ -196,20 +211,20 @@ const MassForm = () => {
 
   // ── Render ─────────────────────────────────────────────
   return (
-    <ThemedView className="flex-1 p-4">
-      <Text className="mb-6 text-2xl font-bold">Registrar nueva Misa</Text>
+    <ThemedView className="flex-1 pt-5">
+      <Text className="mb-6 text-2xl font-bold">Registrar Misa</Text>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 24 }}
       >
         {/* ═══ Fecha ═══ */}
         <View className="mb-4">
-          <Text className="mb-1 font-medium">Fecha</Text>
+          <Text className="mb-1 font-semibold">Fecha</Text>
           <Pressable
             onPress={() => openPicker("date")}
             className="rounded-lg border border-gray-300 p-3"
           >
-            <Text className="text-black">{formatDate(watch("day"))}</Text>
+            <Text className="text-black">{formatDate(selectedDay)}</Text>
           </Pressable>
           {errors.day && (
             <Text className="mt-1 text-sm text-red-500">
@@ -217,16 +232,15 @@ const MassForm = () => {
             </Text>
           )}
         </View>
-
         {/* ═══ Hora ═══ */}
         <View className="mb-4">
-          <Text className="mb-1 font-medium">Hora</Text>
+          <Text className="mb-1 font-semibold">Hora</Text>
           <Pressable
             onPress={() => openPicker("time")}
             className="rounded-lg border border-gray-300 p-3"
           >
             <View className="flex-row items-center justify-between">
-              <Text className="text-black">{formatTime(watch("time"))}</Text>
+              <Text className="text-black">{formatTime(selectedTime)}</Text>
               <Image
                 source={require("@/assets/icons/arrow-up-down.png")}
                 style={{ width: 20, height: 20, tintColor: gray_400 }}
@@ -239,26 +253,77 @@ const MassForm = () => {
             </Text>
           )}
         </View>
+        {/* ═══ Modal iOS ═══ */}
+        {showPicker && Platform.OS === "ios" && (
+          <Modal
+            transparent
+            animationType="fade"
+            visible={showPicker}
+            onRequestClose={() => setShowPicker(false)}
+          >
+            <Pressable
+              className="flex-1 justify-center bg-black/40"
+              style={{
+                borderRadius: 20,
+                padding: 20,
+              }}
+              onPress={() => setShowPicker(false)}
+            >
+              <Pressable
+                className="rounded-xl bg-white px-5 pb-10 pt-5"
+                onPress={() => {}}
+              >
+                <View className="mb-4 flex-row items-center justify-between">
+                  <Text className="text-lg font-bold">
+                    {pickerMode === "date"
+                      ? "Seleccionar fecha"
+                      : "Seleccionar hora"}
+                  </Text>
+                  <Pressable onPress={() => setShowPicker(false)}>
+                    <Text className="text-base font-semibold text-blue-500">
+                      Listo
+                    </Text>
+                  </Pressable>
+                </View>
+                <Host matchContents>
+                  {pickerMode === "date" ? (
+                    <DatePicker
+                      modifiers={[datePickerStyle("graphical")]}
+                      selection={selectedDay}
+                      displayedComponents={["date"]}
+                      onDateChange={(date) => setValue("day", date)}
+                    />
+                  ) : (
+                    <DatePicker
+                      modifiers={[datePickerStyle("wheel")]}
+                      selection={selectedTime}
+                      displayedComponents={["hourAndMinute"]}
+                      onDateChange={(date) => setValue("time", date)}
+                    />
+                  )}
+                </Host>
+              </Pressable>
+            </Pressable>
+          </Modal>
+        )}
 
-        {/* ═══ Native Picker (date + time) ═══ */}
-        {showPicker && (
+        {/* ═══ Native Picker Android ═══ */}
+        {showPicker && Platform.OS === "android" && (
           <DateTimePicker
-            value={pickerMode === "date" ? watch("day") : watch("time")}
-            mode={pickerMode}
+            value={selectedDay}
+            mode={"datetime"}
             is24Hour
             onValueChange={(_, date) => {
-              if (Platform.OS === "android") setShowPicker(false);
               if (date) setValue(pickerMode === "date" ? "day" : "time", date);
             }}
-            onDismiss={() => {
-              if (Platform.OS === "android") setShowPicker(false);
-            }}
+            onDismiss={() => setShowPicker(false)}
+            accentColor={accentColor}
           />
         )}
 
         {/* ═══ Sacerdote ═══ */}
         <View className="mb-4">
-          <Text className="mb-1 font-medium">Sacerdote</Text>
+          <Text className="mb-1 font-semibold">Sacerdote</Text>
           <Pressable
             onPress={() => setShowPriestPicker(true)}
             className="rounded-lg border border-gray-300 p-3"
@@ -281,7 +346,6 @@ const MassForm = () => {
             </Text>
           )}
         </View>
-
         {/* ═══ Modal: Sacerdote ═══ */}
         <Modal
           visible={showPriestPicker}
@@ -334,11 +398,10 @@ const MassForm = () => {
             </Pressable>
           </Pressable>
         </Modal>
-
         {/* ═══ Ministros Extraordinarios ═══ */}
         <View className="mb-4">
           <View className="mb-1 flex-row items-center justify-between">
-            <Text className="font-medium">Ministros Extraordinarios</Text>
+            <Text className="font-semibold">Ministros Extraordinarios</Text>
             {unselectedMinisters.length > 0 && (
               <Pressable onPress={() => setShowMinisterPicker(true)}>
                 <Text className="text-blue-500">+ Agregar</Text>
@@ -376,7 +439,6 @@ const MassForm = () => {
             )}
           </View>
         </View>
-
         {/* ═══ Modal: Ministros ═══ */}
         <Modal
           visible={showMinisterPicker}
@@ -413,11 +475,10 @@ const MassForm = () => {
             </Pressable>
           </Pressable>
         </Modal>
-
         {/* ═══ Monaguillos ═══ */}
         <View className="mb-4">
           <View className="mb-1 flex-row items-center justify-between">
-            <Text className="font-medium">Monaguillos</Text>
+            <Text className="font-semibold">Monaguillos</Text>
             {unselectedAltarBoys.length > 0 && (
               <Pressable onPress={() => setShowAltarBoyPicker(true)}>
                 <Text className="text-blue-500">+ Agregar</Text>
@@ -455,7 +516,6 @@ const MassForm = () => {
             )}
           </View>
         </View>
-
         {/* ═══ Modal: Monaguillos ═══ */}
         <Modal
           visible={showAltarBoyPicker}
@@ -495,7 +555,6 @@ const MassForm = () => {
             </Pressable>
           </Pressable>
         </Modal>
-
         {/* ═══ Errors ═══ */}
         {Object.values(errors).map((err, i) => (
           <Text key={i} className="mb-1 text-sm text-red-500">
@@ -503,13 +562,12 @@ const MassForm = () => {
           </Text>
         ))}
         {error && <Text className="mb-1 text-sm text-red-500">{error}</Text>}
-
         {/* ═══ Submit ═══ */}
         <Pressable
           onPress={handleSubmit(onSubmit)}
           disabled={loading}
           className="mt-4 rounded-lg p-3"
-          style={{ backgroundColor: accentColor }}
+          style={{ backgroundColor: gold_600 }}
         >
           <Text className="text-center font-bold text-white">
             {loading ? "Guardando..." : "Registrar Misa"}

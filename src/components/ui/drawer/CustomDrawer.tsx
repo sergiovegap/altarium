@@ -9,22 +9,14 @@ import {
 import Avatar from "@/components/common/Avatar";
 import CustomButtonLabel from "@/components/common/CustomButtonLabel";
 import CustomDrawerItems from "@/components/ui/drawer/CustomDrawerItem";
-import { useProfile } from "@/features/auth/useProfile";
+import { useProfile } from "@/hooks/useProfile";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { supabase } from "@/lib/supabase";
 import { router } from "expo-router";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-  const {
-    text,
-    accentColor,
-    accentColor_400,
-    gold,
-    gold_600,
-    gray_400,
-    gray_600,
-  } = useThemeColor();
-  const { loadingProfile, profile, userRole } = useProfile();
+  const { accentColor, gray_400, gray_600 } = useThemeColor();
+  const { profile } = useProfile();
 
   const onPress = async () => {
     const { error } = await supabase.auth.signOut();
@@ -44,10 +36,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
           <View>
             <Avatar
               userName={profile?.name + " " + profile?.last_name}
-              imageSource={
-                profile?.photo ||
-                require("@/assets/images/development/profile.png")
-              }
+              imageSource={profile?.photo ? { uri: profile.photo } : undefined}
               className="mb-4"
             />
             <CustomDrawerItems

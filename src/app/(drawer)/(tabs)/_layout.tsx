@@ -6,11 +6,9 @@ import { Tabs } from "expo-router";
 import DrawerIconButton from "@/components/common/DrawerIconButton";
 import ThemedTabIcon from "@/components/common/ThemedTabIcon";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { Platform } from "react-native";
 
 const TabLayout = () => {
-  const { accentColor, gold, gold_600 } = useThemeColor();
-  const isAndroid = Platform.OS === "android";
+  const { accentColor } = useThemeColor();
 
   return (
     <Tabs

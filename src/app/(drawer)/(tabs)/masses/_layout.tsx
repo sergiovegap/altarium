@@ -1,17 +1,12 @@
-// React
 // Expo
-import { router, Stack, usePathname } from "expo-router";
+import { router, Stack } from "expo-router";
 // Custom
 import CustomButton from "@/components/common/CustomButton";
-import { useThemeColor } from "@/hooks/useThemeColor";
 
 const MassesLayout = () => {
-  const pathname = usePathname();
-  const { accentColor } = useThemeColor();
-
   return (
     <Stack
-      initialRouteName="index"
+      initialRouteName="calendar/index"
       screenOptions={{
         headerShown: true,
         headerTitleAlign: "center",
@@ -27,19 +22,19 @@ const MassesLayout = () => {
       }}
     >
       <Stack.Screen
-        name="index"
+        name="calendar/index"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="[day]/index"
+        name="day/index"
         options={{
           title: "Misas del día",
         }}
       />
       <Stack.Screen
-        name="[day]/[day]"
+        name="day-mass-detail/index"
         options={{
           title: "Detalle de la misa",
         }}
@@ -47,8 +42,9 @@ const MassesLayout = () => {
       <Stack.Screen
         name="form/index"
         options={{
-          title: "Registrar Misa",
-          presentation: "pageSheet",
+          // title: "Registrar Misa",
+          headerShown: false,
+          presentation: "modal",
           headerLeft: () => null,
         }}
       />

@@ -4,11 +4,13 @@ import {
   ImageSourcePropType,
   Pressable,
   PressableProps,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 
 interface Props extends PressableProps {
   color?: string;
-  styles?: {};
+  styles?: StyleProp<ViewStyle>;
   className?: string;
   iconSource?: ImageSourcePropType;
   onPress?: PressableProps["onPress"];
@@ -23,7 +25,7 @@ const CustomButton = ({
 }: Props) => {
   return (
     <Pressable
-      //   onPress={onPress}
+      onPress={onPress}
       className={`flex flex-row justify-between ${className}`}
       style={styles}
     >

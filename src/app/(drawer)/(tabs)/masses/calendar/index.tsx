@@ -34,8 +34,8 @@ const monthDevotion = [
 const today = toDateId(new Date());
 
 const Masses = () => {
-  const { accentColor, gold, gold_100, gold_600 } = useThemeColor();
-  const [selectedDate, setSelectedDate] = useState(today);
+  const { accentColor, gold_600 } = useThemeColor();
+  const [selectedDate] = useState(today);
   const [visibleMonth, setVisibleMonth] = useState(today);
 
   const handleViewableItemsChanged = useCallback<
@@ -77,7 +77,7 @@ const Masses = () => {
         calendarPastScrollRangeInMonths={1}
         calendarFutureScrollRangeInMonths={1}
         onCalendarDayPress={(day) => {
-          router.push(`/(drawer)/(tabs)/masses/${day}`);
+          router.push(`/(drawer)/(tabs)/masses/day?day=${day}`);
         }}
         onViewableItemsChanged={handleViewableItemsChanged}
         theme={{
@@ -109,7 +109,7 @@ const Masses = () => {
               container: {
                 borderColor: accentColor,
                 borderRadius: 30,
-                // backgroundColor: isPressed ? gold_600 : accentColor,
+                backgroundColor: isPressed ? gold_600 : "transparent",
               },
               content: {
                 color: "#000000",

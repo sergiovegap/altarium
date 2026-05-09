@@ -4,12 +4,9 @@ import { Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
-import { useThemeColor } from "@/hooks/useThemeColor";
 
 const MassByID = () => {
-  const { accentColor, gold, accentColor_400 } = useThemeColor();
-  const { id, day, time, priest, ministers, altarBoys } =
-    useLocalSearchParams();
+  const { time, priest, ministers, altarBoys } = useLocalSearchParams();
 
   const ministersList = ministers ? (ministers as string).split(",") : [];
   const altarBoysList = altarBoys

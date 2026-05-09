@@ -45,19 +45,6 @@ const UserLiturgicalItemsList = ({ item }: Props) => {
         )}
         ItemSeparatorComponent={() => <ShadowLine />}
       />
-      {/* <FlatList
-                data={DATA}
-                keyExtractor={(item) => item.id}
-                numColumns={3}
-                renderItem={({ item }) => (
-                    <MassItemCard
-                        name={item.name}
-                        description={item.description}
-                        source={require("@/assets/icons/altar-boy-cross-fill.png")}
-                        onPress={() => setSelectedItem(item)}
-                    />
-                )}
-            /> */}
       <Modal visible={!!selectedItem} transparent animationType="fade">
         <View
           style={{
