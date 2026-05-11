@@ -2,17 +2,18 @@
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 // Expo
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useNavigation } from "expo-router";
 // Third-party libraries
 
 // Custom
 import Avatar from "@/components/common/Avatar";
 import ThemedView from "@/components/common/ThemedView";
+import { useParam } from "@/hooks/useParam";
 import { supabase } from "@/lib/supabase";
 import type { Profile } from "@/types";
 
 const AltarBoyInfo = () => {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const id = useParam("id");
   const navigation = useNavigation();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [items, setItems] = useState<string[]>([]);
@@ -60,7 +61,7 @@ const AltarBoyInfo = () => {
     return (
       <ThemedView className="flex-1 items-center justify-center">
         <ActivityIndicator />
-        <Text className="text-gray-500">Cargando...</Text>
+        <Text className="text-gray-500">Cargando información</Text>
       </ThemedView>
     );
   }

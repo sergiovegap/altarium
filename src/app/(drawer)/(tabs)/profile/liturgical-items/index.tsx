@@ -1,10 +1,9 @@
 // Ract
 import { useState } from "react";
-import { Image, Modal, Pressable, View } from "react-native";
+import { FlatList, Image, Modal, Pressable, View } from "react-native";
 // Expo
 import { router } from "expo-router";
 // Third-party libraries
-import { FlashList } from "@shopify/flash-list";
 // Custom
 import CustomButton from "@/components/common/CustomButton";
 import ListItem from "@/components/common/ListItem";
@@ -14,34 +13,32 @@ import MassItemModal from "@/components/screens/liturgical-items/LiturgicalItemM
 import { useThemeColor } from "@/hooks/useThemeColor";
 import LiturgicalItemsMock from "@/utils/mocks/liturgical-items-mock";
 
-interface Props {
-  item: typeof ListItem;
-}
-
-const UserLiturgicalItemsList = ({ item }: Props) => {
-  const { accentColor, gold, gold_600 } = useThemeColor();
+const UserLiturgicalItemsList = () => {
+  const { accentColor, gold_600 } = useThemeColor();
   const [selectedItem, setSelectedItem] = useState<
     (typeof LiturgicalItemsMock)[0] | null
   >(null);
 
   return (
-    <ThemedView style={{ flex: 1 }}>
+    <ThemedView>
       <CustomButton
         color={gold_600}
         className="self-end"
-        iconSource={require("@/assets/icons/add-fill.png")}
+        iconSource={require("@/assets/icons/edit-outline.png")}
         onPress={() => router.push("/(drawer)/(tabs)/profile/liturgical-items")}
       />
-      <FlashList
+      <FlatList
         data={LiturgicalItemsMock}
         keyExtractor={(item) => item.id}
-        numColumns={1}
         renderItem={({ item }) => (
-          <ListItem
-            name={item.name}
-            imageSource={item.image}
-            onPress={() => setSelectedItem(item)}
-          />
+          <>
+            <ListItem
+              name={item.name}
+              imageSource={item.image}
+              onPress={() => setSelectedItem(item)}
+            />
+            <ShadowLine />
+          </>
         )}
         ItemSeparatorComponent={() => <ShadowLine />}
       />

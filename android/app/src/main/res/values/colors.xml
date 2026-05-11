@@ -2,4 +2,8 @@
   <color name="splashscreen_background">#208AEF</color>
   <color name="iconBackground">#E6F4FE</color>
   <color name="colorPrimary">#023c69</color>
+  <color name="datePicker_colorAccent">#D71F2B</color>
+  <color name="datePicker_textColorPrimary">#D71F2B</color>
+  <color name="timePicker_background">#D71F2B</color>
+  <color name="timePicker_numbersBackgroundColor">#D71F2B</color>
 </resources>

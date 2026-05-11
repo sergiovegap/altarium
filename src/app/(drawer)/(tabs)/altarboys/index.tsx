@@ -1,7 +1,6 @@
 // React
-import { Text } from "react-native";
+import { ActivityIndicator, FlatList, Text } from "react-native";
 // Third-party libraries
-import { FlashList } from "@shopify/flash-list";
 // Expo
 import { router } from "expo-router";
 // Custom
@@ -26,6 +25,7 @@ const AltarBoys = () => {
   if (loading) {
     return (
       <ThemedView className="flex-1 items-center justify-center">
+        <ActivityIndicator />
         <Text className="text-gray-500">Cargando monaguillos...</Text>
       </ThemedView>
     );
@@ -33,17 +33,20 @@ const AltarBoys = () => {
 
   return (
     <ThemedView>
-      <FlashList
+      <FlatList
         data={altarBoys}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <AltarBoyCard
-            name={`${item.name} ${item.last_name}`}
-            profilePhoto={item.photo ? { uri: item.photo } : undefined}
-            onPress={() =>
-              router.push(`/(drawer)/(tabs)/altarboys/id?id=${item.id}`)
-            }
-          />
+          <>
+            <AltarBoyCard
+              name={`${item.name} ${item.last_name}`}
+              profilePhoto={item.photo ? { uri: item.photo } : undefined}
+              onPress={() =>
+                router.push(`/(drawer)/(tabs)/altarboys/id?id=${item.id}`)
+              }
+            />
+            <ShadowLine />
+          </>
         )}
         ItemSeparatorComponent={() => <ShadowLine />}
       />

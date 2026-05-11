@@ -140,11 +140,10 @@ const MassForm = () => {
       DateTimePickerAndroid.open({
         value: mode === "date" ? selectedDay : selectedTime,
         mode,
-        is24Hour: false,
+        is24Hour: true,
         onChange: (event, date) => {
           if (date) setValue(mode === "date" ? "day" : "time", date);
         },
-        style: { backgroundColor: "red" },
       });
     } else {
       setPickerMode(mode);
@@ -268,12 +267,65 @@ const MassForm = () => {
           onClose={() => setShowPicker(false)}
           visible={showPicker && Platform.OS === "ios"}
         />
+        {/* {showPicker && Platform.OS === "ios" && (
+          <Modal
+            transparent
+            animationType="fade"
+            visible={showPicker}
+            onRequestClose={() => setShowPicker(false)}
+          >
+            <Pressable
+              className="flex-1 justify-center bg-black/40"
+              style={{
+                borderRadius: 20,
+                padding: 20,
+              }}
+              onPress={() => setShowPicker(false)}
+            >
+              <Pressable
+                className="rounded-xl bg-white px-5 pb-10 pt-5"
+                onPress={() => {}}
+              >
+                <View className="mb-4 flex-row items-center justify-between">
+                  <Text className="text-lg font-bold">
+                    {pickerMode === "date"
+                      ? "Seleccionar fecha"
+                      : "Seleccionar hora"}
+                  </Text>
+                  <Pressable onPress={() => setShowPicker(false)}>
+                    <Text className="text-base font-semibold text-blue-500">
+                      Listo
+                    </Text>
+                  </Pressable>
+                </View>
+                <Host matchContents>
+                  {pickerMode === "date" ? (
+                    <DatePicker
+                      modifiers={[datePickerStyle("graphical")]}
+                      selection={selectedDay}
+                      displayedComponents={["date"]}
+                      onDateChange={(date) => setValue("day", date)}
+                    />
+                  ) : (
+                    <DatePicker
+                      modifiers={[datePickerStyle("wheel")]}
+                      selection={selectedTime}
+                      displayedComponents={["hourAndMinute"]}
+                      onDateChange={(date) => setValue("time", date)}
+                    />
+                  )}
+                </Host>
+              </Pressable>
+            </Pressable>
+          </Modal>
+        )} */}
 
         {/* ═══ Native Picker Android ═══ */}
         {showPicker && Platform.OS === "android" && (
           <DateTimePicker
             value={selectedDay}
             mode={"datetime"}
+            is24Hour
             onValueChange={(_, date) => {
               if (date) setValue(pickerMode === "date" ? "day" : "time", date);
             }}

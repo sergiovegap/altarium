@@ -1,26 +1,25 @@
-import { View, Text, Image, ViewProps } from "react-native";
-import React from "react";
 import ThemedView from "@/components/common/ThemedView";
+import { Image, Text, View, ViewProps } from "react-native";
 
 interface Props extends ViewProps {
-    time?: string;
-    priest?: string;
+  time?: string;
+  priest?: string | null;
 }
 
 const MassCard = ({ time, priest }: Props) => {
-    return (
-        <ThemedView className="flex-row content-center border border-gray-300 bg-gray-100 rounded-lg mt-1 mb-3">
-            <Image
-                source={require("@/assets/icons/eucaristia.png")}
-                //  source={require("@/assets/icons/communion-fill.png")}
-                style={{ width: 26, height: 40 }}
-            />
-            <View className="flex-col justify-center ml-5">
-                <Text className="font-bold">{time}</Text>
-                <Text className="text-sm">{priest}</Text>
-            </View>
-        </ThemedView>
-    );
+  return (
+    <ThemedView className="mb-3 mt-1 flex-row content-center rounded-lg border border-gray-300 bg-gray-100">
+      <Image
+        // source={require("@/assets/icons/eucaristia.png")}
+        source={require("@/assets/icons/communion-fill.png")}
+        style={{ width: 26, height: 40 }}
+      />
+      <View className="ml-5 flex-col justify-center">
+        <Text className="font-bold">{time}</Text>
+        <Text className="text-sm">{priest}</Text>
+      </View>
+    </ThemedView>
+  );
 };
 
 export default MassCard;

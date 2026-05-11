@@ -1,11 +1,12 @@
 // React
-import { Image, Pressable } from "react-native";
+import { Image, Platform, Pressable } from "react-native";
 // Expo
 import { router, Stack, usePathname } from "expo-router";
 // Custom
 
 const AltarBoysLayout = () => {
   const pathname = usePathname();
+  const isAndroid = Platform.OS === "android";
 
   return (
     <Stack
@@ -32,9 +33,12 @@ const AltarBoysLayout = () => {
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
-        dangerouslySingular={(id) => id}
         name="id/index"
-        options={{ headerTitle: "Información" }}
+        options={{
+          headerTitle: "Información",
+          presentation: isAndroid ? "card" : "modal",
+          animation: "fade_from_bottom",
+        }}
       />
     </Stack>
   );

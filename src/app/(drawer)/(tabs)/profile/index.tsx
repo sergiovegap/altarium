@@ -1,38 +1,22 @@
 // React
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import { Text } from "react-native-gesture-handler";
 // Custom
 import UserLiturgicalItemsList from "@/app/(drawer)/(tabs)/profile/liturgical-items";
 import UserMassesList from "@/app/(drawer)/(tabs)/profile/user-masses-list";
 import Avatar from "@/components/common/Avatar";
-import ListItem from "@/components/common/ListItem";
 import ShadowLine from "@/components/common/ShadowLine";
 import ThemedView from "@/components/common/ThemedView";
 import UserRole from "@/components/common/UserRole";
 import { useProfile } from "@/hooks/useProfile";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { supabase } from "@/lib/supabase";
 
 const Profile = () => {
   const { gold_600 } = useThemeColor();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { loadingProfile, profile, userRole } = useProfile();
-  const [parishName, setParishName] = useState("");
-
-  useEffect(() => {
-    if (profile?.parish_id) {
-      supabase
-        .from("parishes")
-        .select("name")
-        .eq("id", profile.parish_id)
-        .single()
-        .then(({ data }) => {
-          if (data) setParishName(data.name);
-        });
-    }
-  }, [profile?.parish_id]);
+  const { loadingProfile, profile, userRole, parishName } = useProfile();
 
   if (loadingProfile) {
     return (
@@ -71,7 +55,7 @@ const Profile = () => {
         <>
           <View className="items-center">
             <SegmentedControl
-              values={["Misas", "Objetos Litúrgicos"]}
+              values={["Mis Misas", "Mis Objetos Litúrgicos"]}
               selectedIndex={selectedIndex}
               onChange={(event) => {
                 setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
@@ -93,7 +77,7 @@ const Profile = () => {
           </View>
           <>
             {selectedIndex === 0 && <UserMassesList />}
-            {selectedIndex === 1 && <UserLiturgicalItemsList item={ListItem} />}
+            {selectedIndex === 1 && <UserLiturgicalItemsList />}
           </>
         </>
       ) : (

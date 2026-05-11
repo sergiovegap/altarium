@@ -1,9 +1,14 @@
+// Ract
+import { Platform } from "react-native";
 // Expo
 import { router, Stack } from "expo-router";
 // Custom
 import CustomButton from "@/components/common/CustomButton";
+import HeaderDownButton from "@/components/common/HeaderDownButton";
 
 const MassesLayout = () => {
+  const isAndroid = Platform.OS === "android";
+
   return (
     <Stack
       initialRouteName="calendar/index"
@@ -42,10 +47,10 @@ const MassesLayout = () => {
       <Stack.Screen
         name="form/index"
         options={{
-          // title: "Registrar Misa",
-          headerShown: false,
-          presentation: "modal",
-          headerLeft: () => null,
+          presentation: isAndroid ? "formSheet" : "modal",
+          headerShown: isAndroid ? true : false,
+          animation: "fade_from_bottom",
+          headerLeft: () => (isAndroid ? <HeaderDownButton /> : null),
         }}
       />
     </Stack>

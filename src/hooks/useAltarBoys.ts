@@ -7,6 +7,7 @@ import type { Profile } from "@/types";
 export const useAltarBoys = (parishId?: string) => {
   const [altarBoys, setAltarBoys] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (!parishId) {
       setAltarBoys([]);

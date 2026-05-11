@@ -34,7 +34,9 @@ const CalendarDay = () => {
           renderItem={({ item }) => (
             <Pressable
               onPress={() =>
-                router.push(`/(drawer)/(tabs)/masses/day-mass-detail`)
+                router.push(
+                  `/(drawer)/(tabs)/masses/day-mass-detail?mass_id=${item.id}`,
+                )
               }
             >
               <MassCard time={item.time} priest={item.priest} />
