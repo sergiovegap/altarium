@@ -15,6 +15,7 @@ import { es } from "date-fns/locale";
 // Custom
 import ThemedView from "@/components/common/ThemedView";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const monthDevotion = [
   { id: "1", name: "Santísimo Nombre de Jesús" },
@@ -34,6 +35,7 @@ const monthDevotion = [
 const today = toDateId(new Date());
 
 const Masses = () => {
+  const insets = useSafeAreaInsets();
   const { accentColor, gold_600 } = useThemeColor();
   const [selectedDate] = useState(today);
   const [visibleMonth, setVisibleMonth] = useState(today);
@@ -54,7 +56,7 @@ const Masses = () => {
   };
 
   return (
-    <ThemedView>
+    <ThemedView style={{ paddingTop: insets.top }}>
       <Text className="mb-5 text-3xl font-bold">
         {visibleMonth.split("-")[0]}
       </Text>
@@ -77,7 +79,7 @@ const Masses = () => {
         calendarPastScrollRangeInMonths={1}
         calendarFutureScrollRangeInMonths={1}
         onCalendarDayPress={(day) => {
-          router.push(`/(drawer)/(tabs)/masses/day?day=${day}`);
+          router.push(`/(app)/(tabs)/masses/day?day=${day}`);
         }}
         onViewableItemsChanged={handleViewableItemsChanged}
         theme={{

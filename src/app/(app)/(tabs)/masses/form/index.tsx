@@ -1,6 +1,7 @@
 // React
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Modal,
   Platform,
@@ -22,11 +23,10 @@ import * as z from "zod";
 // Custom
 import { IOSDatePicker } from "@/components/common/IOSDatePicker";
 import ThemedView from "@/components/common/ThemedView";
+import { useCreateMass } from "@/hooks/useCreateMass";
 import { useProfile } from "@/hooks/useProfile";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { supabase } from "@/lib/supabase";
 
-type Priest = { id: string; name: string; last_name: string };
 type ProfileRef = { id: string; name: string; last_name: string };
 
 const MassSchema = z.object({
@@ -44,15 +44,16 @@ const MassForm = () => {
   const { day: dayParam } = useLocalSearchParams<{ day: string }>();
   const { profile } = useProfile();
 
-  const [priests, setPriests] = useState<Priest[]>([]);
-  const [availableMinisters, setAvailableMinisters] = useState<ProfileRef[]>(
-    [],
-  );
-  const [availableAltarBoys, setAvailableAltarBoys] = useState<ProfileRef[]>(
-    [],
-  );
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    priests,
+    availableMinisters,
+    availableAltarBoys,
+    isLoadingData,
+    isSubmitting,
+    submitError,
+    handleCreateMass,
+  } = useCreateMass(profile?.parish_id);
+
   const [showPriestPicker, setShowPriestPicker] = useState(false);
   const [showMinisterPicker, setShowMinisterPicker] = useState(false);
   const [showAltarBoyPicker, setShowAltarBoyPicker] = useState(false);
@@ -83,36 +84,6 @@ const MassForm = () => {
   const selectedAltarBoysWatched = useWatch({ control, name: "altarBoys" });
   const selectedDay = useWatch({ control, name: "day" });
   const selectedTime = useWatch({ control, name: "time" });
-
-  // ── Load data ──────────────────────────────────────────
-  useEffect(() => {
-    if (!profile?.parish_id) return;
-
-    const loadData = async () => {
-      const [priestsRes, ministersRes, altarBoysRes] = await Promise.all([
-        supabase
-          .from("priests")
-          .select("id, name, last_name")
-          .eq("parish_id", profile.parish_id),
-        supabase
-          .from("profiles")
-          .select("id, name, last_name")
-          .eq("role", "Ministro Extraordinario")
-          .eq("parish_id", profile.parish_id),
-        supabase
-          .from("profiles")
-          .select("id, name, last_name")
-          .eq("role", "Monaguillo")
-          .eq("parish_id", profile.parish_id),
-      ]);
-
-      if (priestsRes.data) setPriests(priestsRes.data);
-      if (ministersRes.data) setAvailableMinisters(ministersRes.data);
-      if (altarBoysRes.data) setAvailableAltarBoys(altarBoysRes.data);
-    };
-
-    loadData();
-  }, [profile?.parish_id]);
 
   // ── Helpers ────────────────────────────────────────────
   const getPriestName = (id: string) => {
@@ -154,51 +125,8 @@ const MassForm = () => {
 
   // ── Registrar Misa ─────────────────────────────────────────────
   const onSubmit = async (data: MassSchemaType) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const dayStr = data.day.toISOString().split("T")[0];
-      const timeStr = formatTime(data.time);
-
-      const { data: mass, error: massError } = await supabase
-        .from("masses")
-        .insert({
-          day: dayStr,
-          time: timeStr + ":00",
-          priest_id: data.priestId,
-          parish_id: profile?.parish_id,
-        })
-        .select()
-        .single();
-
-      if (massError) throw massError;
-
-      if (data.ministers.length > 0) {
-        const { error: e } = await supabase
-          .from("ministers_masses")
-          .insert(
-            data.ministers.map((id) => ({ mass_id: mass.id, minister_id: id })),
-          );
-        if (e) throw e;
-      }
-
-      if (data.altarBoys.length > 0) {
-        const { error: e } = await supabase.from("altar_boys_masses").insert(
-          data.altarBoys.map((id) => ({
-            mass_id: mass.id,
-            altar_boy_id: id,
-          })),
-        );
-        if (e) throw e;
-      }
-
-      router.back();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Error inesperado");
-    } finally {
-      setLoading(false);
-    }
+    const success = await handleCreateMass(data);
+    if (success) router.back();
   };
 
   // ── Unselected pools for single-add modals ──────────────
@@ -208,6 +136,15 @@ const MassForm = () => {
   const unselectedAltarBoys = availableAltarBoys.filter(
     (a) => !selectedAltarBoysWatched.includes(a.id),
   );
+
+  // ── Loading state ──────────────────────────────────────
+  if (isLoadingData) {
+    return (
+      <ThemedView className="flex-1 items-center justify-center">
+        <ActivityIndicator color="white" />
+      </ThemedView>
+    );
+  }
 
   // ── Render ─────────────────────────────────────────────
   return (
@@ -522,16 +459,19 @@ const MassForm = () => {
             {err.message}
           </Text>
         ))}
-        {error && <Text className="mb-1 text-sm text-red-500">{error}</Text>}
+        {submitError && (
+          <Text className="mb-1 text-sm text-red-500">{submitError}</Text>
+        )}
         {/* ═══ Submit ═══ */}
         <Pressable
           onPress={handleSubmit(onSubmit)}
-          disabled={loading}
-          className="mt-4 rounded-lg p-3"
+          disabled={isSubmitting}
+          className="mt-4 flex-row items-center justify-center gap-2 rounded-lg p-3"
           style={{ backgroundColor: gold_600 }}
         >
+          {isSubmitting && <ActivityIndicator color="white" />}
           <Text className="text-center font-bold text-white">
-            {loading ? "Guardando..." : "Registrar Misa"}
+            {isSubmitting ? "Guardando..." : "Registrar Misa"}
           </Text>
         </Pressable>
       </ScrollView>

@@ -46,7 +46,7 @@ export const AuthProvider = (props: Props) => {
         setLoading(false);
 
         if (session) {
-          router.replace("/(drawer)/(tabs)/masses");
+          router.replace("/(app)/(tabs)/masses/calendar");
         } else {
           router.replace("/auth/login");
         }

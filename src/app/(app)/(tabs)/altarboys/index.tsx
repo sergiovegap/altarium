@@ -42,7 +42,7 @@ const AltarBoys = () => {
               name={`${item.name} ${item.last_name}`}
               profilePhoto={item.photo ? { uri: item.photo } : undefined}
               onPress={() =>
-                router.push(`/(drawer)/(tabs)/altarboys/id?id=${item.id}`)
+                router.push(`/(app)/(tabs)/altarboys/id?id=${item.id}`)
               }
             />
             <ShadowLine />

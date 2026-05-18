@@ -17,7 +17,7 @@ const AltarBoysLayout = () => {
         animationDuration: 100,
         headerTitleAlign: "center",
         headerLeft: () =>
-          pathname !== "/(drawer)/(tabs)/masses" && (
+          pathname !== "/(app)/(tabs)/masses" && (
             <Pressable onPress={() => router.back()}>
               <Image
                 source={require("@/assets/icons/arrow-left.png")}

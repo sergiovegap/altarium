@@ -1,6 +1,6 @@
 // React
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 // Expo
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
@@ -20,7 +20,12 @@ const RootLayout = () => {
     <AuthProvider>
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Slot />
+          <SafeAreaView
+            style={{ flex: 1 }}
+            edges={{ top: "off", bottom: "off" }}
+          >
+            <Slot />
+          </SafeAreaView>
         </GestureHandlerRootView>
       </SafeAreaProvider>
     </AuthProvider>

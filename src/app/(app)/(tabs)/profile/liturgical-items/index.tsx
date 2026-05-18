@@ -25,7 +25,7 @@ const UserLiturgicalItemsList = () => {
         color={gold_600}
         className="self-end"
         iconSource={require("@/assets/icons/edit-outline.png")}
-        onPress={() => router.push("/(drawer)/(tabs)/profile/liturgical-items")}
+        onPress={() => router.push("/(app)/(tabs)/profile/liturgical-items")}
       />
       <FlatList
         data={LiturgicalItemsMock}

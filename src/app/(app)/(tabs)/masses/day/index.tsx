@@ -18,7 +18,7 @@ const CalendarDay = () => {
       className="items-center justify-center"
       onPress={() =>
         router.push({
-          pathname: "/(drawer)/(tabs)/masses/form",
+          pathname: "/(app)/(tabs)/masses/form",
           params: { day },
         })
       }
@@ -35,7 +35,7 @@ const CalendarDay = () => {
             <Pressable
               onPress={() =>
                 router.push(
-                  `/(drawer)/(tabs)/masses/day-mass-detail?mass_id=${item.id}`,
+                  `/(app)/(tabs)/masses/day-mass-detail?mass_id=${item.id}`,
                 )
               }
             >

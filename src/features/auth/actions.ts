@@ -14,17 +14,17 @@ export const signUp = async (form: SignUpForm) => {
     }
 
     // 2. Crea el perfil en public.profiles
-    const { error: profileError } = await supabase.from("profiles").insert({
-      id: data.user.id,
-      email: form.email,
-      name: form.name,
-      last_name: form.lastName,
-      birthday: form.birthday?.toISOString(),
-      role: form.role,
-      parish_id: form.parishId,
-    });
+    // const { error: profileError } = await supabase.from("profiles").insert({
+    //   id: data.user.id,
+    //   email: form.email,
+    //   name: form.name,
+    //   last_name: form.lastName,
+    //   birthday: form.birthday?.toISOString(),
+    //   role: form.role,
+    //   parish_id: form.parishId,
+    // });
 
-    if (profileError) return { error: profileError };
+    // if (profileError) return { error: profileError };
 
     return { user: data.user };
   } catch (error) {

@@ -28,10 +28,10 @@ const ProfileLayout = () => {
         },
         headerTitleAlign: "center",
         headerLeft: () =>
-          pathname !== "/(drawer)/(tabs)/profile" && (
+          pathname !== "/(app)/(tabs)/profile" && (
             <HeaderBackButton
               color={accentColor}
-              href={"/(drawer)/(tabs)/profile"}
+              href={"/(app)/(tabs)/profile"}
             />
           ),
         headerRight: () => <DrawerIconButton accentColor={accentColor} />,
@@ -44,7 +44,7 @@ const ProfileLayout = () => {
         name="index"
         options={{
           headerShown: false,
-          headerTitle: "Perfil",
+          headerTitle: "Yo",
         }}
       />
       <Stack.Screen

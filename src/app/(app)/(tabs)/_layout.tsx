@@ -22,11 +22,11 @@ const TabLayout = () => {
           backgroundColor: "white",
         },
         headerTitleAlign: "center",
-        headerTitleStyle: {
-          color: accentColor,
-          fontSize: 20,
-          fontWeight: "bold",
-        },
+        // headerTitleStyle: {
+        //   color: accentColor,
+        //   fontSize: 20,
+        //   fontWeight: "bold",
+        // },
         tabBarActiveTintColor: accentColor,
       }}
     >
@@ -34,6 +34,7 @@ const TabLayout = () => {
         name="masses"
         options={{
           title: "Misas",
+          // headerShown: false,
           // headerTitle: "Misas",
           tabBarIcon: ({ color }) => (
             <ThemedTabIcon
@@ -85,7 +86,7 @@ const TabLayout = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Perfil",
+          title: "Yo",
           headerTitle: "Perfil",
           // headerShown: pathname === "/profile" ? true : false },
           // headerShown: isAndroid && pathname === "/profile" ? false : true,

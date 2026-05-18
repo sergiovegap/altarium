@@ -4,8 +4,8 @@ import { useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import { Text } from "react-native-gesture-handler";
 // Custom
-import UserLiturgicalItemsList from "@/app/(drawer)/(tabs)/profile/liturgical-items";
-import UserMassesList from "@/app/(drawer)/(tabs)/profile/user-masses-list";
+import UserLiturgicalItemsList from "@/app/(app)/(tabs)/profile/liturgical-items";
+import UserMassesList from "@/app/(app)/(tabs)/profile/user-masses-list";
 import Avatar from "@/components/common/Avatar";
 import ShadowLine from "@/components/common/ShadowLine";
 import ThemedView from "@/components/common/ThemedView";

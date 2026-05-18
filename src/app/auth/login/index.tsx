@@ -14,8 +14,8 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import { supabase } from "@/lib/supabase";
 
 const LoginSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.email("Correo inválido"),
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
 
 type LoginSchemaType = z.infer<typeof LoginSchema>;
@@ -49,13 +49,15 @@ const Login = () => {
 
       if (loginError) throw loginError;
 
-      router.replace("/(drawer)/(tabs)/masses");
+      router.replace("/(app)/(tabs)/masses/calendar");
     } catch (err) {
       if (err instanceof z.ZodError) {
         setError(err.message);
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Error inesperado");
       }
-    } finally {
-      setLoading(false);
     }
   };
 

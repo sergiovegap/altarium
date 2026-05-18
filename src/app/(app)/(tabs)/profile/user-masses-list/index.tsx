@@ -34,7 +34,7 @@ const UserMassesList = () => {
           <Pressable
             onPress={() =>
               router.push(
-                `/(drawer)/(tabs)/masses/day-mass-detail?mass_id=${mass.id}`,
+                `/(app)/(tabs)/masses/day-mass-detail?mass_id=${mass.id}`,
               )
             }
           >
@@ -49,7 +49,7 @@ const UserMassesList = () => {
             </Text> */}
             <Pressable
               className="mt-4 rounded-lg border border-gray-300 bg-gray-100 p-3"
-              onPress={() => router.push("/(drawer)/(tabs)/profile/mass-form")}
+              onPress={() => router.push("/(app)/(tabs)/profile/mass-form")}
             >
               <Text className="font-bold text-gray-500">
                 Asignarme a una Misa

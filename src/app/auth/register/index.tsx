@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FlatList, Modal, Pressable, Text, View } from "react-native";
 // Third-party libraries
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import z from "zod";
 // Custom
 import CustomTextInput from "@/components/common/CustomTextInput";
@@ -46,7 +46,6 @@ const Register = () => {
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<RegisterSchemaType>({
     resolver: zodResolver(RegisterSchema),
@@ -60,8 +59,8 @@ const Register = () => {
     },
   });
 
-  const selectedRole = watch("role");
-  const selectedParishId = watch("parishId");
+  const selectedRole = useWatch({ control, name: "role" });
+  const selectedParishId = useWatch({ control, name: "parishId" });
 
   useEffect(() => {
     const loadParishes = async () => {
@@ -89,11 +88,7 @@ const Register = () => {
         },
       });
 
-      if (signUpError) {
-        throw signUpError;
-      } else {
-        router.replace("/auth/login");
-      }
+      if (signUpError) throw signUpError;
 
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: data.email,
@@ -101,6 +96,8 @@ const Register = () => {
       });
 
       if (signInError) throw signInError;
+
+      router.replace("/auth/login");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error inesperado");
     } finally {

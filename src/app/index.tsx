@@ -5,7 +5,7 @@ import { Redirect } from "expo-router";
 import "../global.css";
 
 const App = () => {
-  return <Redirect href="/(drawer)/(tabs)/masses" />;
+  return <Redirect href="/(app)/(tabs)/masses/calendar" />;
 };
 
 export default App;
