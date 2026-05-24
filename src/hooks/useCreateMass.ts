@@ -34,20 +34,49 @@ export const useCreateMass = (
   const [availableAltarBoys, setAvailableAltarBoys] = useState<ProfileRef[]>(
     [],
   );
-  const [isLoadingData, setIsLoadingData] = useState(true);
+  // const [isLoadingData, setIsLoadingData] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // ── Load reference data ────────────────────────────────
+  // useEffect(() => {
+  //   if (!parishId) {
+  //     setIsLoadingData(false);
+  //     return;
+  //   }
+
+  //   const loadData = async () => {
+  //     setIsLoadingData(true);
+
+  //     const [priestsRes, ministersRes, altarBoysRes] = await Promise.all([
+  //       supabase
+  //         .from("priests")
+  //         .select("id, name, last_name")
+  //         .eq("parish_id", parishId),
+  //       supabase
+  //         .from("profiles")
+  //         .select("id, name, last_name")
+  //         .eq("role", "Ministro Extraordinario")
+  //         .eq("parish_id", parishId),
+  //       supabase
+  //         .from("profiles")
+  //         .select("id, name, last_name")
+  //         .eq("role", "Monaguillo")
+  //         .eq("parish_id", parishId),
+  //     ]);
+
+  //     if (priestsRes.data) setPriests(priestsRes.data);
+  //     if (ministersRes.data) setAvailableMinisters(ministersRes.data);
+  //     if (altarBoysRes.data) setAvailableAltarBoys(altarBoysRes.data);
+  //     setIsLoadingData(false);
+  //   };
+
+  //   loadData();
+  // }, [parishId]);
+
   useEffect(() => {
-    if (!parishId) {
-      setIsLoadingData(false);
-      return;
-    }
-
+    if (!parishId) return;
     const loadData = async () => {
-      setIsLoadingData(true);
-
       const [priestsRes, ministersRes, altarBoysRes] = await Promise.all([
         supabase
           .from("priests")
@@ -64,13 +93,10 @@ export const useCreateMass = (
           .eq("role", "Monaguillo")
           .eq("parish_id", parishId),
       ]);
-
       if (priestsRes.data) setPriests(priestsRes.data);
       if (ministersRes.data) setAvailableMinisters(ministersRes.data);
       if (altarBoysRes.data) setAvailableAltarBoys(altarBoysRes.data);
-      setIsLoadingData(false);
     };
-
     loadData();
   }, [parishId]);
 
@@ -82,10 +108,9 @@ export const useCreateMass = (
 
       try {
         const dayStr = data.day.toISOString().split("T")[0];
-        const timeStr = data.time.toLocaleTimeString("es-MX", {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        const hour = String(data.time.getHours()).padStart(2, "0");
+        const minute = String(data.time.getMinutes()).padStart(2, "0");
+        const timeStr = `${hour}:${minute}`;
 
         const { data: mass, error: massError } = await supabase
           .from("masses")
@@ -101,34 +126,34 @@ export const useCreateMass = (
         if (massError) throw massError;
 
         if (data.ministers.length > 0) {
-          const { error: e } = await supabase
-            .from("ministers_masses")
-            .insert(
-              data.ministers.map((id) => ({
-                mass_id: mass.id,
-                minister_id: id,
-              })),
-            );
+          const { error: e } = await supabase.from("ministers_masses").insert(
+            data.ministers.map((id) => ({
+              mass_id: mass.id,
+              minister_id: id,
+            })),
+          );
           if (e) throw e;
         }
 
         if (data.altarBoys.length > 0) {
-          const { error: e } = await supabase
-            .from("altar_boys_masses")
-            .insert(
-              data.altarBoys.map((id) => ({
-                mass_id: mass.id,
-                altar_boy_id: id,
-              })),
-            );
+          const { error: e } = await supabase.from("altar_boys_masses").insert(
+            data.altarBoys.map((id) => ({
+              mass_id: mass.id,
+              altar_boy_id: id,
+            })),
+          );
           if (e) throw e;
         }
 
         return true;
       } catch (err) {
-        setSubmitError(
-          err instanceof Error ? err.message : "Error inesperado",
-        );
+        const message =
+          err instanceof Error
+            ? err.message
+            : err && typeof err === "object" && "message" in err
+              ? (err as { message: string }).message
+              : "Error inesperado";
+        setSubmitError(message);
         return false;
       } finally {
         setIsSubmitting(false);
@@ -137,11 +162,21 @@ export const useCreateMass = (
     [parishId],
   );
 
+  // return {
+  //   priests,
+  //   availableMinisters,
+  //   availableAltarBoys,
+  //   isLoadingData,
+  //   isSubmitting,
+  //   submitError,
+  //   handleCreateMass,
+  // };
+
   return {
     priests,
     availableMinisters,
     availableAltarBoys,
-    isLoadingData,
+    isLoadingData: !!parishId && priests.length === 0,
     isSubmitting,
     submitError,
     handleCreateMass,

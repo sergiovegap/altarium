@@ -74,7 +74,6 @@ const Register = () => {
     try {
       setLoading(true);
       setError(null);
-
       const { error: signUpError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -87,19 +86,19 @@ const Register = () => {
           },
         },
       });
-
       if (signUpError) throw signUpError;
-
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (signInError) throw signInError;
-
-      router.replace("/auth/login");
+      // Registro exitoso → pantalla de verificación
+      router.replace(
+        `/auth/verify-email?email=${encodeURIComponent(data.email)}`,
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error inesperado");
+      const message =
+        err instanceof Error
+          ? err.message
+          : err && typeof err === "object" && "message" in err
+            ? (err as { message: string }).message
+            : "Error inesperado";
+      setError(message);
     } finally {
       setLoading(false);
     }
