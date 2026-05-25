@@ -100,7 +100,9 @@ const Login = () => {
         />
       </View>
 
-      {error ? <Text>{error}</Text> : null}
+      {error ? (
+        <Text className="text-center text-sm text-red-500">{error}</Text>
+      ) : null}
 
       <Pressable
         onPress={handleSubmit(onSubmit)}
